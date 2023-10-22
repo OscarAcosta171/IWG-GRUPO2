@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mapas</title>
+</head>
+<body>
+    <h1>Mapas</h1>
+
+    <!-- Lista de Mapas con botones "Pin" -->
+    <ul>
+        <li>
+            <a href="{% url 'mapa1' %}">Campus San Joaquín</a>
+            <button class="pin" data-url="{% url 'mapa1' %}">Pin</button>
+        </li>
+        <li>
+            <a href="{% url 'mapa2' %}">Campus Casa Central</a>
+            <button class="pin" data-url="{% url 'mapa2' %}">Pin</button>
+        </li>
+        <li>
+            <a href="{% url 'mapa3' %}">Campus xxxxxxxxxxx</a>
+            <button class="pin" data-url="{% url 'mapa3' %}">Pin</button>
+        </li>
+    </ul>
+
+    <!-- Enlace para volver al inicio -->
+    <a href="{% url 'index' %}">Volver al Inicio</a>
+
+    <!-- Contenido de la página "Mapas" -->
+    {% block content %}{% endblock %}
+
+    <!-- manejo del botón "Pin" -->
+    <script>
+        var pinButtons = document.querySelectorAll(".pin");
+
+        pinButtons.forEach(function(button) {
+            button.addEventListener("click", function() {
+                // Obtener la URL del mapa asociada al botón "Pin"
+                var mapUrl = this.getAttribute("data-url");
+
+                // Almacenar la URL "pinchada" en sessionStorage
+                sessionStorage.setItem("mapaPinchado", mapUrl);
+            });
+        });
+    </script>
+</body>
+</html>
