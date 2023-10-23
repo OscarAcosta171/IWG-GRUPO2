@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mas información</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        .header-bar {
+            background-color: #4c4e4e;
+            padding: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: white;
+        }
+
+        .header-title {
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+        }
+
+        .header-title img {
+            width: 70px;
+            height: 60px;
+            margin-right: 5px;
+        }
+
+        .header-separator {
+            margin: 1 10px;
+        }
+
+        .content {
+            padding: 10px;
+        }
+
+        /* Cambiar el tamaño del título principal */
+        h1 {
+            font-size: 28px; /* Ajusta el tamaño a tu preferencia, por ejemplo, 24px */
+        }
+
+        /* Cambiar el tamaño del texto en el contenido */
+        p {
+            font-size: 16px; /* Ajusta el tamaño a tu preferencia, por ejemplo, 16px */
+        }
+    </style>
+</head>
+<body>
+    <div class="header-bar">
+        <a href="{% url 'index' %}" class="header-title">
+            <img src="{% static 'logo.webp' %}" alt="USM ECO GUIDE" width="80" height="60">
+            USM ECO GUIDE
+        </a>
+        <span class="header-separator">|</span>
+        <span class="header-title">Reciclaje</span>
+    </div>
+
+    <div class="content">
+        <h1>Más acerca de reciclaje</h1>
+        <p>Aquí debería ir toda la información específica de la página.</p>
+    </div>
+</body>
+</html>
