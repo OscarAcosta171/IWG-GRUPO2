@@ -1,0 +1,82 @@
+/* Estilos para la barra de navegación */
+nav {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Asegura que la barra esté por encima de todo */
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+/* Estilos para el logotipo */
+.logo {
+    height: 30px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+/* Estilos para el contenedor principal */
+.container {
+    display: flex;
+    align-items: flex-start;
+    padding-top: 50px; /* Añade espacio para la barra de navegación */
+}
+
+/* Estilos para la imagen */
+.image-container {
+    max-width: 1000px;
+    margin-left: 5px;
+    margin-right: 5px; /* Añade un margen derecho */
+    position: relative;
+}
+
+/* Estilos para la sección derecha (título y botones) */
+.right-section {
+    padding: 10px;
+    margin-right: 10px; /* Añade un margen derecho */
+}
+
+/* Estilos para el área de marcadores */
+.marker-area {
+    width: 100%;
+    position: relative;
+}
+
+/* Estilos para los marcadores */
+.marker {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+}
+
+/* Estilos para el título */
+.title {
+    text-align: right;
+    font-size: 24px;
+}
+
+/* Estilos para los botones y selects */
+.map-buttons {
+    margin-top: 20px; /* Ajusta el margen superior según sea necesario */
+}
+
+.map-buttons button#addMarkerButton,
+.map-buttons button#clearMarkers {
+    display: block;
+}
+
+.map-buttons select {
+    margin: 5px 0;
+}
