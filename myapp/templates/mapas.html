@@ -1,0 +1,185 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="icon" type="image/x-icon" href="{% static 'logo_verde.ico' %}" />
+    <title>Mapas</title>
+    <style>
+        /* Estilos para la barra de navegación */
+        body {
+            background-color: #f4f4f4;
+        }
+        nav {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            border-radius: 8px; /* Añadir un redondeo ligero a la barra de navegación */
+        }
+
+        nav a {
+            color: rgb(255, 255, 255);
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        /* Estilo para el logo */
+        .logo {
+            height: 30px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        /* Estilos para los mapas */
+        ul.map-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .map-item {
+            background-color: #fff;
+            border: 1px solid #f4f4f4;
+            border-radius: 10px;
+            margin: 10px;
+            padding: 10px;
+            width: 350px; /* Ajusta el ancho de los elementos según tus necesidades */
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-align: center; /* Centra el contenido en el bloque */
+            position: relative;
+            transition: transform 0.2s;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .map-item img {
+            max-width: 100%;
+            border-radius: 10px;
+            height: auto;
+            margin: 0 auto;
+            filter: blur(1px); /* Aplicar un filtro de desenfoque */
+            cursor: pointer; /* Cambiar el cursor al pasar por encima de la imagen */
+            transition: filter 0.2s;
+        }
+
+        .map-item:hover {
+            background-color: rgba(255, 255, 255, 0.7); /* Resaltar el fondo del mapa al pasar el cursor */
+            transform: scale(1.02);
+        }
+
+        .map-item img:hover {
+            filter: none; /* Quitar el filtro de desenfoque al pasar el cursor por encima de la imagen */
+        }
+
+        .map-title {
+            font-weight:lighter;
+            padding: 10px;
+            font-size: 20px;
+            text-decoration: none;
+            color: #000;
+            cursor:pointer;
+        }
+
+        .map-button {
+            display: flex;
+            flex-direction: column;
+            margin-top: auto;
+            position:static;
+        }
+
+        .map-button button {
+            margin-top: 10px;
+            background-color: #fff;
+            color: #000;
+            border: 1px solid #000;
+            border-radius: 5px;
+            padding: 10px 20px;
+            text-decoration: none;
+            transition: background-color 0.2s, transform 0.2s;
+        }
+
+        .map-button button:hover {
+            background-color: #333;
+            color: #fff;
+            transform: scale(1.02);
+        }
+
+        .map-item:hover .map-button {
+            transform: scale(1.01); /* Escalar el recuadro al pasar el cursor por encima */
+            background-color: #eee8e8; /* Cambiar el color de fondo al pasar el cursor por encima */
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="{% url 'index' %}">
+            <img src="{% static 'logo_blanco.webp' %}" alt="Logo USM ECO GUIDE" class="logo">
+            USM ECO GUIDE
+        </a>
+        <span>|</span>
+        <a href="{% url 'mapas' %}">Mapas</a>
+        <span>|</span>
+        <a href="{% url 'mas_informacion' %}">Más información</a>
+    </nav>
+
+    <ul class="map-list">
+        <li class="map-item">
+            <a href="{% url 'mapa1' %}" class="map-title">
+                <div class="map-title">Campus San Joaquín</div>
+                <img src="{% static 'san_joaquin_v1.webp' %}" alt="Campus San Joaquín">
+            </a>
+            <div class="map-button">
+                <button class="pin" data-url="{% url 'mapa1' %}">Pin 📌</button>
+            </div>
+        </li>
+
+        <li class="map-item">
+            <a href="{% url 'mapa2' %}" class="map-title">
+                <div class="map-title">Campus Casa Central</div>
+                <img src="{% static 'hogwarts.webp' %}" alt="Campus Casa Central">
+                <div class="map-button">
+                    <button class="pin" data-url="{% url 'mapa2' %}">Pin 📌</button>
+                </div>
+            </a>
+        </li>
+
+        <li class="map-item">
+            <a href="{% url 'mapa3' %}" class="map-title">
+                <div class="map-title">Campus XXXXXXXXXX</div>
+                <img src="{% static 'kanto.webp' %}" alt="Campus XXXXXXXXXX">
+                <div class="map-button">
+                    <button class="pin" data-url="{% url 'mapa3' %}">Pin 📌</button>
+                </div>
+            </a>
+        </li>
+
+        <li class="map-item">
+            <a href="{% url 'mapa4' %}" class="map-title">
+                <div class="map-title">Campus YYYYYYYYYY</div>
+                <img src="{% static 'ark.webp' %}" alt="Campus YYYYYYYYYY" width="300" height="150">
+                <div class="map-button">
+                    <button class="pin" data-url="{% url 'mapa4' %}">Pin 📌</button>
+                </div>
+            </a>
+        </li>
+
+        <!-- Agrega más elementos según sea necesario -->
+    </ul>
+
+    <!-- Manejo del botón "Pin" -->
+    <script>
+        var pinButtons = document.querySelectorAll(".pin");
+
+        pinButtons.forEach(function(button) {
+            button.addEventListener("click", function() {
+                var mapUrl = this.getAttribute("data-url");
+                sessionStorage.setItem("mapaPinchado", mapUrl);
+            });
+        });
+    </script>
+</body>
+</html>

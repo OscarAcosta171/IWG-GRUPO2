@@ -1,0 +1,143 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="icon" type="image/x-icon" href="{% static 'logo_verde.ico' %}" />
+    <title>Mapa xxxxxxxx</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+ 
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <nav>
+        <a href="{% url 'index' %}">
+            <img src="{% static 'logo_blanco.webp' %}" alt="Logo USM ECO GUIDE" class="logo">
+            USM ECO GUIDE
+        </a>
+        <span>|</span>
+        <a href="{% url 'mapas' %}">Mapas</a>
+        <a href="#" id="anularPinLink">Anular Pin</a>
+        <span>|</span>
+        <a href="{% url 'mas_informacion' %}">Más información</a>
+    </nav>
+
+    <!-- Contenedor principal -->
+    <div class="container">
+        <!-- Sección de la imagen -->
+        <div class="image-container" style="position: relative;">
+            <img src="{% static 'kanto.webp' %}" alt="Mapa 1" width="1000" height="730">
+        </div>
+
+        <!-- Sección derecha (título y botones) -->
+        <div class="right-section">
+            <div class="title">
+                <h1>Campus de xxxxxxxxx</h1>
+            </div>
+            <div class="map-buttons">
+                <button id="addMarkerButton">Añadir Marcador</button>
+                <select id="markerColor">
+                    <option value="red">Rojo</option>
+                    <option value="blue">Azul</option>
+                    <option value="green">Verde</option>
+                </select>
+                <select id="filterMarkers">
+                    <option value="all">Ver Todos</option>
+                    <option value="red">Rojo</option>
+                    <option value="blue">Azul</option>
+                    <option value="green">Verde</option>
+                </select>
+                <button id="clearMarkers">Limpiar Marcadores</button>
+                <button id="SaveChanges">Guardar Cambios</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var clearMarkersButton = document.getElementById("clearMarkers");
+        var markerArea = document.querySelector(".image-container");
+        var markerColorSelect = document.getElementById("markerColor");
+        var markers = [];
+        var addingMarker = false;
+
+        clearMarkersButton.addEventListener("click", function() {
+            markers.forEach(function(marker) {
+                markerArea.removeChild(marker);
+            });
+            markers = [];
+        });
+
+        var anularPinLink = document.getElementById("anularPinLink");
+
+        anularPinLink.addEventListener("click", function() {
+            sessionStorage.removeItem("mapaPinchado");
+        });
+
+        var addMarkerButton = document.getElementById("addMarkerButton");
+
+        addMarkerButton.addEventListener("click", function() {
+            addingMarker = !addingMarker;
+            addMarkerButton.innerText = addingMarker ? "Cancelar" : "Añadir Marcador";
+        });
+
+        markerArea.addEventListener("click", function(event) {
+            if (addingMarker) {
+                var x = event.offsetX;
+                var y = event.offsetY;
+                var color = markerColorSelect.value;
+
+                var marker = document.createElement("div");
+                marker.className = "marker";
+                marker.style.left = x + "px";
+                marker.style.top = y + "px";
+                marker.style.backgroundColor = color;
+
+                // Agregar el panel emergente al marcador
+                var markerPopup = document.createElement("div");
+                markerPopup.className = "marker-popup";
+                markerPopup.innerHTML = `
+                    <p>Color: <span class="color-name">${color}</span></p>
+                    <button class="delete-marker">Eliminar</button>
+                `;
+                marker.appendChild(markerPopup);
+
+                markerArea.appendChild(marker);
+
+                markers.push(marker);
+                addingMarker = false;
+                addMarkerButton.innerText = "Añadir Marcador";
+
+                // Agregar eventos para mostrar/ocultar panel emergente y eliminar marcador
+                marker.addEventListener("mouseenter", function() {
+                    markerPopup.style.display = "block";
+                });
+
+                marker.addEventListener("mouseleave", function() {
+                    markerPopup.style.display = "none";
+                });
+
+                var deleteButton = markerPopup.querySelector(".delete-marker");
+                deleteButton.addEventListener("click", function() {
+                    markerArea.removeChild(marker);
+                    markers = markers.filter(function(item) {
+                        return item !== marker;
+                    });
+                });
+            }
+        });
+
+        var filterMarkersSelect = document.getElementById("filterMarkers");
+
+        filterMarkersSelect.addEventListener("change", function() {
+            var selectedColor = filterMarkersSelect.value;
+
+            markers.forEach(function(marker) {
+                if (selectedColor === "all" || marker.style.backgroundColor === selectedColor) {
+                    marker.style.display = "block";
+                } else {
+                    marker.style.display = "none";
+                }
+            });
+        });
+    </script>
+</body>
+</html>

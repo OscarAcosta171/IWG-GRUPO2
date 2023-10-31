@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Más información</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'logo_verde.ico' %}" />
+    <style>
+        /* Estilos para la barra de navegación */
+        .nav {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            border-radius: 8px;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        /* Estilo para el logo */
+        .logo {
+            height: 30px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        /* Estilos para el contenido */
+        .content {
+            padding: 10px;
+        }
+
+        /* Cambiar el tamaño del título principal */
+        h1 {
+            font-size: 28px;
+        }
+
+        /* Cambiar el tamaño del texto en el contenido */
+        p {
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <a href="{% url 'index' %}">
+            <img src="{% static 'logo_blanco.webp' %}" alt="Logo USM ECO GUIDE" class="logo">
+            USM ECO GUIDE
+        </a>
+        <span>|</span>
+        <a href="{% url 'mapas' %}">Mapas</a>
+        <span>|</span>
+        <a href="{% url 'mas_informacion' %}">Más información</a>
+    </div>
+
+    <div class="content">
+        <h1>Más acerca de reciclaje</h1>
+        <p>Aquí debería ir toda la información específica de la página.</p>
+    </div>
+</body>
+</html>
