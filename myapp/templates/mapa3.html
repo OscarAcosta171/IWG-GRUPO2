@@ -1,0 +1,183 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="icon" type="image/x-icon" href="{% static 'logo_verde.ico' %}" />
+    <title>Mapa 3</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <nav>
+        <a href="{% url 'index' %}">
+            <img src="{% static 'logo_blanco.webp' %}" alt="Logo USM ECO GUIDE" class="logo">
+            USM ECO GUIDE
+        </a>
+        <span>|</span>
+        <a href="{% url 'mapas' %}">Mapas</a>
+        <a href="#" id="anularPinLink">Anular Pin</a>
+        <span>|</span>
+        <a href="{% url 'mas_informacion' %}">Más información</a>
+    </nav>
+
+    <!-- Contenedor de la imagen -->
+    <div class="container">
+        <!-- Sección de la imagen -->
+        <div class="image-container" style="position: relative;">
+            <img src="{% static 'kanto.webp' %}" alt="Mapa 1" width="1000" height="730">
+        </div>
+
+        <!-- Sección derecha (título y botones) -->
+        <div class="right-section">
+            <div class="title">
+                <h1>Campus de xxxxxxx</h1>
+            </div>
+            <div class="map-buttons">
+                <button id="addMarkerButton">Añadir Marcador</button>
+                <select id="markerColor">
+                    <option value="#FF3333">Normal</option>
+                    <option value="#3333FF">Papel y cartón</option>
+                    <option value="#33FF33">Vidrio</option>
+                    <option value="#FFFF00">Botellas plásticas</option>
+                    <option value="#424242">Latas</option>
+                </select>
+                <select id="filterMarkers">
+                    <option value="all">Ver Todos</option>
+                    <option value="#FF3333">Normal</option>
+                    <option value="#3333FF">Papel y cartón</option>
+                    <option value="#33FF33">Vidrio</option>
+                    <option value="#FFFF00">Botellas plásticas</option>
+                    <option value="#424242">Latas</option>
+                </select>                
+                <button id="clearMarkers">Limpiar Marcadores</button>
+                <button id="SaveChanges">Guardar Cambios</button>
+            </div>
+            <div class="right-section-2">
+                <div class="title2">
+                    <h1>Asignación de colores:</h1>
+                </div>
+                <div class="text-asignation"> 
+                    <div class="color-description">
+                        <div class="color-box" style="background-color:#FF3333;"></div>
+                        <h1>Normal</h1>
+                    </div>
+                    <div class="color-description">
+                        <div class="color-box" style="background-color: #3333FF;"></div>
+                        <h1>Papel y cartón</h1>
+                    </div>
+                    <div class="color-description">
+                        <div class="color-box" style="background-color: #33FF33;"></div>
+                        <h1>Vidrio</h1>
+                    </div>
+                    <div class="color-description">
+                        <div class="color-box" style="background-color: #FFFF00;"></div>
+                        <h1>Botellas plásticas</h1>
+                    </div>
+                    <div class="color-description">
+                        <div class="color-box" style="background-color: #212121;"></div>
+                        <h1>Latas</h1>
+                    </div>
+                </div>
+            </div>    
+        </div>
+    </div>
+    <script>
+        var clearMarkersButton = document.getElementById("clearMarkers");
+        var markerArea = document.querySelector(".image-container");
+        var markerColorSelect = document.getElementById("markerColor");
+        var filterMarkersSelect = document.getElementById("filterMarkers")
+        var markers = [];
+        var addingMarker = false;
+
+        clearMarkersButton.addEventListener("click", function() {
+            markers.forEach(function(marker) {
+                markerArea.removeChild(marker);
+            });
+            markers = [];
+        });
+
+        var anularPinLink = document.getElementById("anularPinLink");
+
+        anularPinLink.addEventListener("click", function() {
+            sessionStorage.removeItem("mapaPinchado");
+        });
+
+        var addMarkerButton = document.getElementById("addMarkerButton");
+
+        addMarkerButton.addEventListener("click", function() {
+            addingMarker = !addingMarker;
+            addMarkerButton.innerText = addingMarker ? "Cancelar" : "Añadir Marcador";
+        });
+
+        markerArea.addEventListener("click", function(event) {
+            if (addingMarker) {
+                var x = event.offsetX;
+                var y = event.offsetY;
+                var Tipo = markerColorSelect.options[markerColorSelect.selectedIndex].text;
+                var markerColor = markerColorSelect.value;
+
+                var marker = document.createElement("div");
+                marker.className = "marker " + Tipo.toLowerCase(); // aca hay problemas
+                marker.style.left = x + "px";
+                marker.style.top = y + "px";
+                marker.style.backgroundColor = markerColor;
+
+                // Agregar el panel emergente al marcador
+                var markerPopup = document.createElement("div");
+                markerPopup.className = "marker-popup";
+                markerPopup.innerHTML = `
+                    <p>Tipo: <span class="Tipo-name">${Tipo}</span></p>
+                    <button class="delete-marker">Eliminar</button>
+                    <button class="move">Mover</button>
+                `;
+                marker.appendChild(markerPopup);
+
+                markerArea.appendChild(marker);
+
+                markers.push(marker);
+                addingMarker = false;
+                addMarkerButton.innerText = "Añadir Marcador";
+
+                // Agregar eventos para mostrar/ocultar panel emergente y eliminar marcador
+                marker.addEventListener("mouseenter", function() {
+                    markerPopup.style.display = "block";
+                });
+
+                marker.addEventListener("mouseleave", function() {
+                    markerPopup.style.display = "none";
+                });
+
+                var deleteButton = markerPopup.querySelector(".delete-marker");
+                deleteButton.addEventListener("click", function() {
+                    markerArea.removeChild(marker);
+                    markers = markers.filter(function(item) {
+                        return item !== marker;
+                    });
+                });
+            }
+        });
+
+        filterMarkersSelect.addEventListener("change", function() {
+            var selectedColor = filterMarkersSelect.value;
+
+            markers.forEach(function(marker) {
+                if (selectedColor === "all" || RGBToHex(marker.style.backgroundColor) === selectedColor)
+                    marker.style.display = "block";
+                else marker.style.display = "none";
+            });
+        });
+
+        function RGBToHex(rgb) {
+            // Dividir los valores RGB y convertirlos a hexadecimal
+            var rgbArray = rgb.match(/\d+/g);
+            var hex = "#";
+            for (var i = 0; i < 3; i++) {
+                var channel = parseInt(rgbArray[i]);
+                hex += ("0" + channel.toString(16)).slice(-2);
+            }
+            return hex.toUpperCase();
+        }       
+    </script>
+</body>
+</html>
