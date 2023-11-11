@@ -1,0 +1,16 @@
+import sqlite3
+from .forms import MarkerForm
+from .models import Marker
+
+def guardar_marcadores(self):
+    self.base = sqlite3.connect("db.sqlite3")
+    self.cursor = base.cursor()
+    map_id = self.map_id.text()
+    x = self.x.text()
+    y = self.y.text()
+    tipo = self.tipo.text()
+    if map_id != "" or x != "" or y != "" or tipo != "":
+        self.base.execute(f"""INSERT INTO Marker VALUES(map_id, x, y, tipo)""")
+        self.base.commit()
+        self.LoadDataBase()
+        self.base.close()
