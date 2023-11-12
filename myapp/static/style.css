@@ -1,0 +1,264 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+
+/* Estilos para la barra de navegación */
+nav {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+/* Estilos para el logotipo */
+.logo {
+    height: 30px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+/* Estilos para el contenedor principal */
+.container {
+    display: flex;
+    align-items: flex-start;
+    padding-top: 50px;
+}
+
+/* Estilos para la imagen */
+.image-container {
+    max-width: 1000px;
+    margin-left: 10px;
+    margin-right: 5px;
+    position: relative;
+    margin-top: 10px;
+    border-radius: 10px; 
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3); 
+}
+/* Estilos para la imagen */
+.image-container img {
+    border-radius: 10px; 
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3); 
+    display: block; 
+    max-width: 100%; 
+}
+
+/* Estilos para la sección derecha (título y botones) */
+.right-section {
+    padding: 20px;
+    background-color: #dddddd;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+    text-align: center;
+    margin: 20px auto;
+    width: 550px; /* tamaño recuadro */
+    height: 400px;
+
+}
+
+/* Estilos para el área de marcadores */
+.marker-area {
+    width: 100%;
+    position: relative;
+}
+
+/* Estilos para los marcadores */
+.marker {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+}
+
+/* Estilos para el título */
+.title {
+    font-size: 25px; /* tamaño titulo */
+    font-family: 'Open Sans', sans-serif; /* fuente */
+    margin-bottom: 20px; /* ajunte margen inferior */
+}
+
+/* Estilos para los botones y selects */
+.map-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.map-buttons button#addMarkerButton,
+.map-buttons button#clearMarkers {
+    display: block;
+    padding: 11px 20px;
+    font-size: 15px;
+    border: none;
+    border-radius: 20px;
+    background-color: #333;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    margin: 5px 0;
+}
+
+.map-buttons button#addMarkerButton:hover,
+.map-buttons button#clearMarkers:hover {
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    color: black;
+}
+
+/* Estilos para el panel de opciones */
+.map-buttons select {
+    margin: 5px 0;
+    border-radius: 20px; /* Borde redondeado */
+    padding: 8px 10px;
+    cursor: pointer;
+    text-align: center;
+    background-color: #fff; /* Color de fondo */
+    color: black; /* Color del texto */
+    font-size: 16px; /* Tamaño del texto */
+    transition: background-color 0.3s;
+    width: 30%; /* Ancho del botón al 100% */
+}
+
+/* Estilos para el botón SaveChanges */
+#SaveChanges {
+    display: block;
+    font-size: 15px;
+    margin: 45px auto; /* Ajusta la separación superior y crea espacio en la parte inferior */
+    padding: 12px 20px; /* Ajusta el espaciado interno del botón */
+    background-color: #00b894; /* Color de fondo diferente, por ejemplo, azul */
+    color: white; /* Color del texto */
+    border: none; /* Sin borde */
+    border-radius: 20px; /* Hace que el botón sea redondeado */
+    cursor: pointer; /* Cambia el cursor al pasar el mouse sobre el botón */
+    transition: background-color 0.3s; /* Agrega una transición de color al botón */
+}
+
+#SaveChanges:hover {
+    background-color: #fff; 
+    color: black;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+.right-section-2 { /* recuadro de abajo*/
+    padding: 10px;
+    background-color: #dddddd;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 50px auto;
+    width: 400px; 
+    height: 200px;
+    
+}
+
+
+.title2 { 
+    font-weight:bold;
+    font-size: 12px; /* tamaño titulo */
+    font-family: 'Open Sans', sans-serif; /* fuente */
+    margin-bottom: 1px; /* ajunte margen inferior */
+    margin-left: 70px;
+    
+}
+
+.text-asignation {
+    margin-top: 25px;
+    font-size: 9.5px;
+    margin-left: 65px;
+}
+
+.color-description {
+    display: flex;
+    align-items: center;
+}
+
+.color-box {
+    border-radius: 10px;
+    width: 50px;
+    height: 20px;
+    background-color: #FF5733; /* Color de fondo para "Normales" (ajusta según necesites) */
+    margin-right: 10px; /* Espacio entre el recuadro y el texto */
+}
+
+h1 {
+    margin: 0;
+}
+
+.marker-popup {
+    background-color: #fff;
+    width: 180px;
+    border-radius: 8px;
+    border: 2px dashed #333;
+    translate: 23px;
+    transform: translateY(-13px);
+}
+
+.marker-popup-content {
+    padding: 2px;
+}
+
+.marker-container:hover .marker-popup {
+    display: block;
+    font-size: 10px;
+    margin-left: 10px;
+    
+}
+
+/* Estilos para el botón de eliminar marcador */
+.delete-marker,.move {
+    background-color: #fff;
+    color: black;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 5px 13px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.2s;
+    margin-left: 10px;
+}
+
+.delete-marker:hover,.move:hover {
+    box-shadow: 0 0 5px 2px rgba(10, 10, 10, 0.6);
+}
+
+/* Estilos para el nombre del color del marcador */
+.Tipo-name {
+    font-weight: bold;
+    text-align: center;
+}
+
+.marker-popup::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -7.5%; /* Cambié "right" a "left" para que  la base de la flecha esté pegada al recuadro */
+    border-width: 10px;
+    border-style: dashed;
+    border-color: transparent transparent transparent rgba(255, 255, 255, 0.8);
+    transform: translateY(-88%) rotate(180deg);
+    border-right: 2px solid #333;   
+    
+}
+
+/* Estilo para el texto del panel emergente */
+.marker-popup p {
+    text-align: center;
+    margin: 6px 0;
+}
+
