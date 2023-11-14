@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import MarkerForm
 from .models import Marker
-import sqlite3
+from django.http import JsonResponse
 
 # Create your views here.
 def index(request):                         #Pagina principal
@@ -36,3 +36,23 @@ def agregar_marcador(request):
     else:
         form = MarkerForm()
     return render(request, 'template.html', {'form': form})
+
+def guardar_marcadores(request):
+    if request.method == 'POST':
+        x = request.POST.get('x')
+        y = request.POST.get('y')
+        Tipo = request.POST.get('Tipo')
+        mapa = request.POST.get('mapa')
+        if x is not None and y is not None:
+            Marker.objects.create(
+                x = float(x),
+                y = float(y),
+                Tipo = str(Tipo),
+                mapa = int(mapa)
+            )
+            return JsonResponse({'status': 'success'})
+        
+    
+    return JsonResponse({'status': 'error'})
+       
+    

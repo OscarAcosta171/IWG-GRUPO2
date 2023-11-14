@@ -117,8 +117,16 @@
                 var Tipo = markerColorSelect.options[markerColorSelect.selectedIndex].text;
                 var markerColor = markerColorSelect.value;
 
+                /* código para guardar los marcadores a la base de datos */
+                fetch('guardar_marcadores/'), {
+                    method:'POST'   
+                }
+                body: 'x=' + x + '&y=' + y + '&tipo=' + Tipo + 'mapa=' + '4'
+                })
+                .then(response => response.json())
+
                 var marker = document.createElement("div");
-                marker.className = "marker " + Tipo.toLowerCase(); 
+                marker.className = "marker" + Tipo.toLowerCase(); 
                 marker.style.left = x + "px";
                 marker.style.top = y + "px";
                 marker.style.backgroundColor = markerColor;
