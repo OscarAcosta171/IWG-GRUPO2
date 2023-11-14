@@ -1,0 +1,200 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="icon" type="image/x-icon" href="{% static 'logo_verde.ico' %}" />
+    <title>Mapas</title>
+    <style>
+        /* Estilos para la barra de navegación */
+        body {
+            background-color: #f4f4f4;
+            font-family: 'Arial', sans-serif;
+        }
+        nav {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            font-size: 18px;
+            padding: 10px 0;
+            margin-top: -6px;
+            width: 99%;
+            border-radius: 8px;
+            position: fixed;
+            z-index: 1000;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        /* Estilo para el logo */
+        .logo {
+            height: 30px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        /* Estilos para los mapas */
+        ul.map-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .map-item {
+            background-color: #fff;
+            border: 1px solid #f4f4f4;
+            border-radius: 25px;
+            margin: 15px;
+            padding: 10px;
+            width: 360px; /* Ajusta el ancho de los elementos según tus necesidades */
+            height: 425px;
+            display: flex;
+            align-items: center;
+            margin-top: 80px;
+            flex-direction: column;
+            justify-content: space-between;
+            text-align: center; /* Centra el contenido en el bloque */
+            position: relative;
+            transition: transform 0.2s;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .map-item img {
+            max-width: 100%;
+            border-radius: 10px;
+            height: auto;
+            margin: 0 auto;
+            filter: blur(1px); /* Aplicar un filtro de desenfoque */
+            cursor: pointer; /* Cambiar el cursor al pasar por encima de la imagen */
+            transition: filter 0.2s;
+        }
+
+        .map-item:hover {
+            background-color: rgba(255, 255, 255, 0.7); /* Resaltar el fondo del mapa al pasar el cursor */
+            transform: scale(1.02);
+        }
+
+        .map-item img:hover {
+            filter: none; /* Quitar el filtro de desenfoque al pasar el cursor por encima de la imagen */
+        }
+
+        .map-title {
+            font-weight:lighter;
+            padding: 10px;
+            font-size: 22px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #000;
+            cursor:pointer;
+        }
+
+        .map-button {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            background-color: transparent;
+            border: none;
+            margin-bottom: 8px;
+            transition: background-color 0.2s, transform 0.2s;
+
+        }
+
+        .map-button button {
+            background-color: #fff;
+            color: #000;
+            border: 1px solid #000;
+            border-radius: 19px;
+            padding: 0 150px ;
+            text-decoration: none;
+        }
+
+        .map-button button:hover {
+            background-color: #333;
+            color: #fff;
+            transform: scale(1.02);
+        }
+
+        .map-item:hover .map-button {
+            bottom: 0px;
+        }
+        .pin {
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="{% url 'index' %}">
+            <img src="{% static 'logo_blanco.webp' %}" alt="Logo USM ECO GUIDE" class="logo">
+            USM ECO GUIDE
+        </a>
+        <span>|</span>
+        <a href="{% url 'mapas' %}">Mapas</a>
+        <span>|</span>
+        <a href="{% url 'mas_informacion' %}">Más información</a>
+    </nav>
+
+    <ul class="map-list">
+        <li class="map-item">
+            <a href="{% url 'mapa1' %}" class="map-title">
+                <div class="map-title">Campus San Joaquín</div>
+                <img src="{% static 'san_joaquin_v2.webp' %}" alt="Campus San Joaquín">
+            </a>
+            <div class="map-button">
+                <button class="pin" data-url="{% url 'mapa1' %}">Fijar 📌</button>
+            </div>
+        </li>
+
+        <li class="map-item">
+            <a href="{% url 'mapa2' %}" class="map-title">
+                <div class="map-title">Campus Casa Central</div>
+                <img src="{% static 'hogwarts.webp' %}" alt="Campus Casa Central">
+                <div class="map-button">
+                    <button class="pin" data-url="{% url 'mapa2' %}">Fijar 📌</button>
+                </div>
+            </a>
+        </li>
+
+        <li class="map-item">
+            <a href="{% url 'mapa3' %}" class="map-title">
+                <div class="map-title">Campus XXXXXXXXXX</div>
+                <img src="{% static 'kanto.webp' %}" alt="Campus XXXXXXXXXX">
+                <div class="map-button">
+                    <button class="pin" data-url="{% url 'mapa3' %}">Fijar 📌</button>
+                </div>
+            </a>
+        </li>
+
+        <li class="map-item">
+            <a href="{% url 'mapa4' %}" class="map-title">
+                <div class="map-title">Campus YYYYYYYYYY</div>
+                <img src="{% static 'ark.webp' %}" alt="Campus YYYYYYYYYY" width="290" height="150">
+                <div class="map-button">
+                    <button class="pin" data-url="{% url 'mapa4' %}">Fijar   📌</button>
+                </div>
+            </a>
+        </li>
+
+        <!-- Agrega más elementos según sea necesario -->
+    </ul>
+
+    <!-- Manejo del botón "Pin" -->
+    <script>
+        var pinButtons = document.querySelectorAll(".pin");
+
+        pinButtons.forEach(function(button) {
+            button.addEventListener("click", function() {
+                var mapUrl = this.getAttribute("data-url");
+                sessionStorage.setItem("mapaPinchado", mapUrl);
+            });
+        });
+    </script>
+</body>
+</html>
