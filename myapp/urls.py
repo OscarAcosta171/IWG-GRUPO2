@@ -1,5 +1,6 @@
 from myapp import views
 from django.urls import path
+from .views import guardar_coordenadas
 
 
 urlpatterns = [
@@ -11,6 +12,6 @@ urlpatterns = [
     path('mapa3/',views.mapa3, name='mapa3' ),  # Ruta para mapa3
     path('mapa4/',views.mapa4, name='mapa4' ),  # Ruta para mapa4
     path('mas informacion/', views.mas_informacion, name= "mas_informacion"),
-    path('mapa4/', views.guardar_marcadores, name='guardar_marcadores'),
+    path('mapa1/', views.guardar_coordenadas, name='guardar_coordenadas'),
     path('pruebas/',views.pruebas, name='pruebas')
 ]
