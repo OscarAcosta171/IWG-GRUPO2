@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="{% static 'logo_verde.ico' %}" />
+    <title>USM ECO GUIDE</title>
+    <style>
+        body {
+            text-align: center;
+            background-color: #DCE0D9;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        
+        .map-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            width: 810px; /* Aumentar el ancho del bloque central */
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+            display: block;
+
+        }
+
+        .btn-container {
+            text-align: center;
+            margin: 20px;
+            position: relative;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 24px;
+            margin: 10px;
+            text-decoration: none;
+            font-size: 17px;
+            background-color: #fff;
+            color: black;
+            border: 1px solid #000;
+            border-radius: 8px;
+            transition: background-color 0.2s, transform 0.2s;
+            position: relative;
+            z-index: 10;
+        }
+
+        .btn:hover {
+            background-color: #444444;
+            color: #fff;
+            transform: scale(1.06);
+            border: none;
+        }
+        #anularPinLink {
+            display: flex;
+            position: relative;
+            width: 15%;
+            padding: 9px;
+            flex-direction: column;
+            margin-left: 41%;
+        }
+        
+        #anularPinLink:hover{
+            background-color: #009D7A;
+            color: white;
+            transform: scale(1.02);
+            border: none;
+        }
+
+        #anularPinLink:active {
+            animation: desaparecer 0.8s ease forwards;
+        }
+
+        #anularPinLink:hover::before {
+            transform-origin: bottom;
+            transform: scaleX(0);
+            transition: transform 0.8s ease;
+        }
+
+        @keyframes desaparecer {
+            to {
+                opacity: 0;
+                transform: scale(0);
+            }
+        }
+        
+        .logo-overlay {
+            display: block;
+            max-width: 100%;
+            max-height: 100%;
+            margin: 0 auto;
+            pointer-events: none;
+            user-select: none;  
+        }
+    </style>
+</head>
+<body>
+    <div class="map-container">
+        <div class="logo-overlay">
+            <img src="{% static 'logo_entero.webp' %}" alt="Logo Entero" width="650" height="435">
+        </div>
+        <div class="btn-container">
+            <a href="#" id="mapasLink" class="btn">Mapas</a>
+            <a href="{% url 'mas_informacion' %}" class="btn">Más Información</a>
+            <a href="#" id="anularPinLink" class="btn">Anular Pin</a>
+        </div>
+    </div>
+    <!-- Efecto "pin" y anular el pin -->
+    <script>
+        var mapasLink = document.getElementById("mapasLink");
+        var anularPinLink = document.getElementById("anularPinLink");
+
+        mapasLink.addEventListener("click", function(e) {
+            e.preventDefault(); // Evitar que el enlace recargue la página
+ 
+            // Obtener la URL del mapa "pinchado" desde el almacenamiento de sesión
+            var mapaPinchado = sessionStorage.getItem("mapaPinchado");
+
+            // Si hay una URL "pinchada," redirigir directamente a esa URL
+            if (mapaPinchado) {
+                window.location.href = mapaPinchado;
+            } else {
+                // Si no hay URL "pinchada," redirigir a la lista de mapas
+                window.location.href = "{% url 'mapas' %}";
+            }
+        });
+
+        anularPinLink.addEventListener("click", function() {
+            // Al hacer clic en "Anular Pin," eliminar la URL "pinchada"
+            sessionStorage.removeItem("mapaPinchado");
+            // Ocultar el enlace "Anular Pin"
+            anularPinLink.style.display = "none";
+        });
+    </script>
+</body>
+</html>
