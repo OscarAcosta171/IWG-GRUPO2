@@ -14,5 +14,6 @@ urlpatterns = [
     path('mas informacion/', views.mas_informacion, name= "mas_informacion"),
     path('mapa1/', views.guardar_coordenadas, name='guardar_coordenadas'),
     path('pruebas/',views.pruebas, name='pruebas'),
-    path('loadScreen/', views.loadScreen, name='loadscreen')
+    path('loadScreen/', views.loadScreen, name='loadscreen'),
+    path('guardar_coordenadas/', views.guardar_coordenadas, name='guardar_coordenadas')
 ]

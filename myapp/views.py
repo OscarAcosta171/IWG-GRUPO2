@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .forms import MarkerForm
 from .models import Marker
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 def index(request):                         #Pagina principal
@@ -32,32 +33,16 @@ def pruebas(request):
 def loadScreen(request):
     return render(request, 'loadScreen.html')
 
-def agregar_marcador(request):
-    if request.method == 'POST':
-        form = MarkerForm(request.POST)
-        if form.is_valid():
-            form.save()
-            # Redirigir o realizar otras acciones después de guardar
-            return redirect('nombre_de_la_vista')
-    else:
-        form = MarkerForm()
-    return render(request, 'template.html', {'form': form})
-
-def guardar_coordenadas(request):
+@csrf_exempt
+def guardar_coordenadas(request):   
     if request.method == 'POST':
         x = request.POST.get('x')
         y = request.POST.get('y')
         Tipo = request.POST.get('Tipo')
+        markerColor = request.POST.get('markerColor')
         mapa = request.POST.get('mapa')
 
-        print(f'x: {x}, y: {y}, Tipo: {Tipo}, mapa: {mapa}')
+        Marker.objects.create(x =x, y = y, Tipo = Tipo, color = markerColor, mapa = mapa)
+        return JsonResponse({'message': 'Marker saved successfully'})
 
-        Marker.objects.create(
-            x = float(x),
-            y = float(y),
-            Tipo = Tipo,
-            mapa = int(mapa)
-        )
-        return JsonResponse({'status': 'success'})
-
-    return JsonResponse({'status': 'error'})
+    return JsonResponse({'message': 'Invalid request'})

@@ -105,13 +105,30 @@
                     var marker = createMarker(x, y, Tipo, markerColor);
                     markerArea.appendChild(marker);
                     markers.push(marker);
+                    SaveMarkerToDatabase(x, y, Tipo, markerColor)
     
                     addingMarker = false;
                     updateAddMarkerButtonText();
                 }
             });
 
-    
+            function SaveMarkerToDatabase(x, y,Tipo, markerColor) {
+                var request = new XMLHttpRequest();
+                request.open('POST', '/guardar_coordenadas/', true);
+                request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+                request.onreadystatechange = function () {
+                    if (request.readyState == 4 && request.status == 200) {
+                        console.log(request.responseText);
+                    }
+    };
+                var datos = "x=" + encodeURIComponent(x) +
+                            "&y=" + encodeURIComponent(y) +
+                            "&Tipo=" + encodeURIComponent(Tipo) +
+                            "&markerColor=" + encodeURIComponent(markerColor) +
+                            "&mapa=1";
+                request.send(datos);
+            }
+
             function createMarker(x, y, Tipo, markerColor) {
                 var marker = document.createElement("div");
                 marker.className = "marker " + Tipo.toLowerCase();
@@ -147,18 +164,6 @@
                 deleteButton.addEventListener("click", function () {
                     deleteMarker(marker);
                 });
-
-                fetch('guardar_coordenadas', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                        },
-                        body: 'x=' + x + '&y=' + y + '&Tipo=' + Tipo + '&mapa=1'
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log(data.status)
-                    }) 
                 return marker;
             }
     

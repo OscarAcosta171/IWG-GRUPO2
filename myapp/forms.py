@@ -4,4 +4,4 @@ from .models import Marker
 class MarkerForm(forms.ModelForm):
     class Meta:
         model = Marker
-        fields = ['x', 'y', 'Tipo', 'mapa']
+        fields = ['x', 'y', 'Tipo', 'color', 'mapa']

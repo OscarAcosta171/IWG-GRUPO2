@@ -5,4 +5,5 @@ class Marker(models.Model):
     x = models.FloatField()
     y = models.FloatField()
     Tipo = models.TextField()
-    mapa = models.CharField(max_length=255)
+    color = models.TextField()
+    mapa = models.IntegerField()
