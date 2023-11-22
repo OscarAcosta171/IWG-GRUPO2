@@ -1,0 +1,285 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+
+/* Estilos para la barra de navegación */
+nav {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    font-size: 18px;
+    padding: 10px 0;
+    width: 99%;
+    border-radius: 8px; /* Añadir un redondeo ligero a la barra de navegación */
+    position: fixed;
+    z-index: 1000;
+    margin: 9px 0 0 8px
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+/* Estilos para el logotipo */
+.logo {
+    height: 30px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+/* Estilos para el contenedor principal */
+.container {
+    display: flex;
+    align-items: flex-start;
+    padding-top: 50px;
+}
+
+/* Estilos para la imagen */
+.image-container {
+    max-width: 1000px;
+    margin-left: 10px;
+    margin-right: 5px;
+    position: relative;
+    margin-top: 15px;
+    border-radius: 10px; 
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3); 
+    
+    user-select: none; 
+}
+/* Estilos para la imagen */
+.image-container img {
+    border-radius: 10px; 
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3); 
+    display: block; 
+    max-width: 100%;
+    pointer-events: none; 
+    user-select: none; 
+}
+
+/* Estilos para la sección derecha (título y botones) */
+.right-section {
+    padding: 20px;
+    background-color: #dddddd;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+    text-align: center;
+    margin: 20px auto;
+    width: 550px; /* tamaño recuadro */
+    height: 340px;
+    margin-top: 25px;
+}
+
+/* Estilos para el área de marcadores */
+.marker-area {
+    width: 100%;
+    position: relative;
+}
+
+/* Estilos para los marcadores */
+.marker {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    border:2px solid black;
+
+}
+
+/* Estilos para el título */
+.title {
+    font-size: 25px; /* tamaño titulo */
+    font-family: 'Open Sans', sans-serif; /* fuente */
+    margin-bottom: 20px; /* ajunte margen inferior */
+}
+
+/* Estilos para los botones y selects */
+.map-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.map-buttons button#addMarkerButton {
+    display: block;
+    padding: 11px 20px;
+    font-size: 15px;
+    border: none;
+    border-radius: 20px;
+    background-color: #333;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    margin: 5px 0;
+}
+
+#clearMarkers {
+    display: block;
+    padding: 13px 22px;
+    font-size: 16px;
+    border: none;
+    border-radius: 20px;
+    background-color: #009D7A;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    margin: 7px 0;
+}
+
+.map-buttons button#addMarkerButton:hover,
+.map-buttons button#clearMarkers:hover {
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    color: black;
+}
+
+/* Estilos para el panel de opciones */
+.map-buttons select {
+    margin: 5px 0;
+    border-radius: 20px; /* Borde redondeado */
+    padding: 10px 15px;
+    cursor: pointer;
+    text-align: center;
+    background-color: #fff; /* Color de fondo */
+    color: black; /* Color del texto */
+    font-size: 16px; /* Tamaño del texto */
+    transition: background-color 0.3s;
+    width: 35%; /* Ancho del botón al 100% */
+}
+
+/* Estilos para el botón SaveChanges */
+#SaveChanges {
+    display: block;
+    font-size: 15px;
+    margin: 45px auto; 
+    padding: 12px 20px; 
+    background-color: transparent; 
+    color: transparent;
+    border: none; 
+    border-radius: 20px; 
+    cursor: pointer; 
+    transition: background-color 0.3s; 
+    pointer-events: none;
+    user-select: none; 
+}
+
+#SaveChanges:hover {
+    background-color: transparent; 
+    color: transparent;
+    pointer-events: none;
+    user-select: none; 
+}
+
+.right-section-2 { /* recuadro de abajo*/
+    padding: 10px;
+    background-color: #dddddd;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 5px auto;
+    width: 400px; 
+    height: 190px;
+    
+}
+
+.title2 { 
+    font-weight:bold;
+    font-size: 12px; /* tamaño titulo */
+    font-family: 'Open Sans', sans-serif; /* fuente */
+    margin-bottom: 1px; /* ajunte margen inferior */
+    margin-left: 70px;
+    
+}
+
+.text-asignation {
+    margin-top: 25px;
+    font-size: 10px;
+    margin-left: 65px;
+    line-height: 1.15;
+}
+
+.color-description {
+    display: flex;
+    align-items: center;
+}
+
+.color-box {
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    width: 50px;
+    height: 20px;
+    margin-right: 10px; /* Espacio entre el recuadro y el texto */
+}
+
+h1 {
+    margin: 0;
+}
+
+.marker-popup {
+    background-color: #fff;
+    width: 180px;
+    border-radius: 8px;
+    border: 2.2px dashed #333;
+    translate: 23px;
+    transform: translateY(-13px);
+}
+
+.marker-popup-content {
+    padding: 2px;
+}
+
+.marker-container:hover .marker-popup {
+    display: block;
+    font-size: 10px;
+    margin-left: 10px;
+    
+}
+
+/* Estilos para el botón de eliminar marcador */
+.delete-marker,.move {
+    background-color: #fff;
+    color: black;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 5px 13px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.2s;
+    margin-left: 10px;
+}
+
+.delete-marker:hover,.move:hover {
+    box-shadow: 0 0 5px 2px rgba(10, 10, 10, 0.6);
+}
+
+/* Estilos para el nombre del color del marcador */
+.Tipo-name {
+    font-weight: bold;
+    text-align: center;
+}
+
+.marker-popup::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -7.5%; /* Cambié "right" a "left" para que  la base de la flecha esté pegada al recuadro */
+    border-width: 10px;
+    border-style: dashed;
+    border-color: transparent transparent transparent rgba(255, 255, 255, 0.8);
+    transform: translateY(-88%) rotate(180deg);
+    border-right: 2px solid transparent; 
+}
+
+/* Estilo para el texto del panel emergente */
+.marker-popup p {
+    text-align: center;
+    margin: 6px 0;
+}
