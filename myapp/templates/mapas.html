@@ -3,6 +3,7 @@
 <html>
 <head>
     <link rel="icon" type="image/x-icon" href="{% static 'logo_verde.ico' %}" />
+    <meta name="viewport" content="width=device-width, initial-scale=0.8">
     <title>Mapas</title>
     <style>
         /* Estilos para la barra de navegación */
@@ -189,7 +190,7 @@
         <li class="map-item"> <!-- conce  -->
             <a href="{% url 'mapa4' %}" class="map-title">
                 <div class="map-title">Campus Concepción</div>
-                <img src="{% static 'ark.webp' %}" alt="Campus YYYYYYYYYY" width="290" height="150">
+                <img src="{% static 'mapa_concepcion.webp' %}" alt="Campus YYYYYYYYYY" width="290" height="150">
             </a>
             <div class="map-button">
                 <button class="pin" data-url="{% url 'mapa4' %}">Fijar📌</button>
@@ -198,7 +199,7 @@
         <li class="map-item"> <!-- viña -->
             <a href="{% url 'mapa5' %}" class="map-title">
                 <div class="map-title">Campus Viña del mar</div>
-                <img src="{% static 'ark.webp' %}" alt="Campus YYYYYYYYYY" width="290" height="150">
+                <img src="{% static 'mapa_viña.webp' %}" alt="Campus YYYYYYYYYY" width="290" height="150">
             </a>
             <div class="map-button">
                 <button class="pin" data-url="{% url 'mapa5' %}">Fijar📌</button>
@@ -232,38 +233,25 @@
             </div>
         </li>
     </ul>
-
-    <!-- Manejo del botón "Pin" -->
-    <script>
+    <script> //esto hace que el boton pin cambie al '✔' y luego vuelva a su estado original
         document.querySelectorAll('.pin').forEach(function(button) {
             button.addEventListener('click', function() {
                 const buttonElement = this;
                 const originalText = buttonElement.textContent; // Guarda el texto original del botón
                 
                 buttonElement.textContent = '✔'; // Reemplaza el contenido con ✓
-                buttonElement.classList.add('active'); // Agrega la clase 'active' para mantener el color cambiado
+                buttonElement.classList.add('active'); 
                 
-                // Vuelve al contenido original después de 1 segundo (1000 milisegundos)
                 setTimeout(function() {
                     buttonElement.textContent = originalText; // Restaura el texto original
-                    buttonElement.classList.remove('active'); // Elimina la clase 'active' para volver al color original
-                }, 600); // Cambia este valor para ajustar el tiempo en milisegundos
+                    buttonElement.classList.remove('active'); 
+                }, 600); // tiempo de la animacion
                 
                 var mapUrl = buttonElement.getAttribute("data-url");
                 sessionStorage.setItem("mapaPinchado", mapUrl);
             });
         });
-
-
-        // Cargar la pantalla de carga
-        const loaderContainer = document.getElementById('loaderContainer');
-        loaderContainer.innerHTML = '<object type="text/html" data="loadScreen.html" width="100%" height="100%"></object>';
-
-        // Evento para eliminar la pantalla de carga cuando el contenido esté cargado
-        window.addEventListener('load', () => {
-            loaderContainer.style.display = 'none';
-        });
-        
+        //esto es para el pin
         var pinButtons = document.querySelectorAll(".pin");
 
         pinButtons.forEach(function(button) {
