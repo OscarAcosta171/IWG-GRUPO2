@@ -27,6 +27,18 @@ def mapa3(request):                          #mapa3
 def mapa4(request):                          #mapa4
     return render(request, 'mapa4.html')
 
+def mapa5(request):                          #mapa5
+    return render(request, 'mapa5.html')
+
+def mapa6(request):                          #mapa de prueba 1
+    return render(request, 'mapa6.html')
+
+def mapa7(request):                          #mapa de prueba 2
+    return render(request, 'mapa7.html')
+
+def mapa8(request):                          #mapa de prueba 3
+    return render(request, 'mapa8.html')
+
 def pruebas(request):
     return render(request, 'pruebas.html')
 

@@ -3,7 +3,7 @@
 <html>
 <head>
     <link rel="icon" type="image/x-icon" href="{% static 'logo_verde.ico' %}" />
-    <title>Concepción</title>
+    <title>Viña del mar</title>
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
 </head>
@@ -25,13 +25,13 @@
     <div class="container">
         <!-- Sección de la imagen -->
         <div class="image-container" style="position: relative;">
-            <img src="{% static 'mapa_concepcion.webp' %}" alt="Mapa 1" width="1000" height="730">
+            <img src="{% static 'mapa_viña.webp' %}" alt="Mapa 1" width="1000" height="730">
         </div>
 
         <!-- Sección derecha (título y botones) -->
         <div class="right-section">
             <div class="title">
-                <h1>Campus de Concepción</h1>
+                <h1>Campus Viña del mar</h1>
             </div>
             <div class="map-buttons">
                 <button id="addMarkerButton">Añadir Marcador</button>
@@ -75,7 +75,7 @@
                         <h1>Botellas plásticas</h1>
                     </div>
                     <div class="color-description">
-                        <div class="color-box" style="background-color: #757575;"></div>
+                        <div class="color-box" style="background-color: #212121;"></div>
                         <h1>Latas</h1>
                     </div>
                 </div>
@@ -111,7 +111,7 @@
                     updateAddMarkerButtonText();
                 }
             });
-    
+
             function SaveMarkerToDatabase(x, y,Tipo, markerColor) {
                 var request = new XMLHttpRequest();
                 request.open('POST', '/guardar_coordenadas/', true);
@@ -125,9 +125,10 @@
                             "&y=" + encodeURIComponent(y) +
                             "&Tipo=" + encodeURIComponent(Tipo) +
                             "&markerColor=" + encodeURIComponent(markerColor) +
-                            "&mapa=4";
+                            "&mapa=1";
                 request.send(datos);
             }
+
             function createMarker(x, y, Tipo, markerColor) {
                 var marker = document.createElement("div");
                 marker.className = "marker " + Tipo.toLowerCase();
@@ -259,6 +260,5 @@
             }
         });
     </script>
-    
 </body>
 </html>

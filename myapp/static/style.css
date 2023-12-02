@@ -87,6 +87,8 @@ nav a {
     border-radius: 50%;
     transform: translate(-50%, -50%);
     cursor: pointer;
+    border:2px solid black;
+
 }
 
 /* Estilos para el título */
@@ -118,22 +120,22 @@ nav a {
 
 #clearMarkers {
     display: block;
-    padding: 12px 20px;
-    font-size: 15px;
+    padding: 13px 22px;
+    font-size: 16px;
     border: none;
     border-radius: 20px;
     background-color: #009D7A;
     color: #fff;
     cursor: pointer;
     transition: background-color 0.3s, box-shadow 0.3s;
-    margin: 5px 0;
+    margin: 7px 0;
 }
 
 .map-buttons button#addMarkerButton:hover,
 .map-buttons button#clearMarkers:hover {
-background-color: #fff;
-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-color: black;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    color: black;
 }
 
 /* Estilos para el panel de opciones */
@@ -225,7 +227,7 @@ h1 {
     background-color: #fff;
     width: 180px;
     border-radius: 8px;
-    border: 2px dashed #333;
+    border: 2.2px dashed #333;
     translate: 23px;
     transform: translateY(-13px);
 }

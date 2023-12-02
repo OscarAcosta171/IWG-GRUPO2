@@ -34,6 +34,7 @@
                 <h1>Campus San Joaquín</h1>
             </div>
             <div class="map-buttons">
+                <!-- esta es para añadir marcadores-->
                 <button id="addMarkerButton">Añadir Marcador</button>
                 <select id="markerColor">
                     <option value="#FF3333">Normal</option>
@@ -42,6 +43,7 @@
                     <option value="#FFFF00">Botellas plásticas</option>
                     <option value="#424242">Latas</option>
                 </select>
+                <!-- Esta es para el filtro de los marcadores-->
                 <select id="filterMarkers">
                     <option value="all">Ver Todos</option>
                     <option value="#FF3333">Normal</option>
@@ -49,10 +51,12 @@
                     <option value="#33FF33">Vidrio</option>
                     <option value="#FFFF00">Botellas plásticas</option>
                     <option value="#424242">Latas</option>
-                </select>                
+                </select>         
+                 <!-- limpiar y guardar cambios(ya no se usa)-->       
                 <button id="clearMarkers">Limpiar Marcadores</button>
                 <button id="SaveChanges">Guardar Cambios</button>
             </div>
+            <!-- este es el recuadro con colores en la parte inferior derecha de cada mapa -->
             <div class="right-section-2">
                 <div class="title2">
                     <h1>Asignación de colores:</h1>
@@ -88,14 +92,13 @@
             var markers = [];
             var addingMarker = false;
             
-    
             document.getElementById("addMarkerButton").addEventListener("click", toggleAddMarker);
             document.getElementById("clearMarkers").addEventListener("click", clearMarkers);
             document.getElementById("SaveChanges").addEventListener("click", saveChanges);
             document.getElementById("anularPinLink").addEventListener("click", anularPin);
             document.getElementById("filterMarkers").addEventListener("change", filterMarkers);
     
-            markerArea.addEventListener("click", function (event) {
+            markerArea.addEventListener("click", function (event) { /* para añadir marcadores*/
                 if (addingMarker) {
                     var x = event.offsetX;
                     var y = event.offsetY;
@@ -112,7 +115,7 @@
                 }
             });
 
-            function SaveMarkerToDatabase(x, y,Tipo, markerColor) {
+            function SaveMarkerToDatabase(x, y,Tipo, markerColor) { /*este los mete en la base de datos*/
                 var request = new XMLHttpRequest();
                 request.open('POST', '/guardar_coordenadas/', true);
                 request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
@@ -129,7 +132,7 @@
                 request.send(datos);
             }
 
-            function createMarker(x, y, Tipo, markerColor) {
+            function createMarker(x, y, Tipo, markerColor) { /*este igual ayuda a la creacion del marcador*/
                 var marker = document.createElement("div");
                 marker.className = "marker " + Tipo.toLowerCase();
                 marker.style.position = "absolute";
@@ -137,7 +140,7 @@
                 marker.style.top = y + "px";
                 marker.style.backgroundColor = markerColor;
     
-                var markerPopup = document.createElement("div");
+                var markerPopup = document.createElement("div"); /*este es el panel desplegable*/
                 markerPopup.className = "marker-popup";
                 markerPopup.innerHTML = `
                     <p>Tipo: <span class="Tipo-name">${Tipo}</span></p>
@@ -155,12 +158,12 @@
                     markerPopup.style.display = "none";
                 });
     
-                var moveButton = markerPopup.querySelector(".move");
+                var moveButton = markerPopup.querySelector(".move"); /*para mover el marcador*/
                 moveButton.addEventListener("click", function () {
                     moveMarker(marker);
                 });
     
-                var deleteButton = markerPopup.querySelector(".delete-marker");
+                var deleteButton = markerPopup.querySelector(".delete-marker"); /*para eliminar el marcador*/
                 deleteButton.addEventListener("click", function () {
                     deleteMarker(marker);
                 });
@@ -222,7 +225,7 @@
                 });
             }
     
-            function clearMarkers() {
+            function clearMarkers() { /*este elimina todos los marcadores*/
                 markers.forEach(function (marker) {
                     markerArea.removeChild(marker);
                 });
@@ -230,16 +233,15 @@
             }
     
             function saveChanges() {
-                // Agrega aquí la lógica para guardar los cambios si es necesario
-                // Por ejemplo, puedes enviar los datos al servidor o almacenarlos localmente.
+                // acá iria la de guardar cambios pero no se usó xd
                 console.log("Cambios guardados");
             }
     
-            function anularPin() {
+            function anularPin() { /*anulacion del pin dentro del mapa*/
                 sessionStorage.removeItem("mapaPinchado");
             }
     
-            function filterMarkers() {
+            function filterMarkers() { /*funcion para el filtro por colores hexadecimales*/
                 var selectedColor = document.getElementById("filterMarkers").value;
     
                 markers.forEach(function (marker) {
@@ -260,6 +262,5 @@
             }
         });
     </script>
-    
 </body>
 </html>
