@@ -26,6 +26,16 @@
         <!-- Sección de la imagen -->
         <div class="image-container" style="position: relative;">
             <img src="{% static 'san_joaquin_v2.webp' %}" alt="Mapa 1" width="1000" height="730">
+            {% for marcador in marcadores %}
+            <div class="marker {{ marcador.tipo|lower }}">
+                <div style="position: absolute;
+                 left: {{ marcador.x }}px; top: {{ marcador.y }}px; background-color: {{ marcador.markerColor }};">
+                    <div class="marker-popup">
+                        <p>Tipo: <span class="Tipo-name">{{ marcador.tipo }}</span></p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
         </div>
 
         <!-- Sección derecha (título y botones) -->
