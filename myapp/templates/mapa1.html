@@ -6,6 +6,9 @@
     <title>San Joaquín</title>
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/leaflet.css" />
+    <script src="leaflet.js"></script>
+
 </head>
 <body>
     <!-- Barra de navegación -->
@@ -30,6 +33,7 @@
 
         <!-- Sección derecha (título y botones) -->
         <div class="right-section">
+            
             <div class="title">
                 <h1>Campus San Joaquín</h1>
             </div>
@@ -109,13 +113,13 @@
                     markerArea.appendChild(marker);
                     markers.push(marker);
                     SaveMarkerToDatabase(x, y, Tipo, markerColor)
-    
+
                     addingMarker = false;
                     updateAddMarkerButtonText();
                 }
             });
 
-            function SaveMarkerToDatabase(x, y,Tipo, markerColor) { /*este los mete en la base de datos*/
+            function SaveMarkerToDatabase(x, y,Tipo, markerColor) {
                 var request = new XMLHttpRequest();
                 request.open('POST', '/guardar_coordenadas/', true);
                 request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
@@ -132,7 +136,7 @@
                 request.send(datos);
             }
 
-            function createMarker(x, y, Tipo, markerColor) { /*este igual ayuda a la creacion del marcador*/
+            function createMarker(x, y, Tipo, markerColor) { 
                 var marker = document.createElement("div");
                 marker.className = "marker " + Tipo.toLowerCase();
                 marker.style.position = "absolute";
@@ -140,7 +144,7 @@
                 marker.style.top = y + "px";
                 marker.style.backgroundColor = markerColor;
     
-                var markerPopup = document.createElement("div"); /*este es el panel desplegable*/
+                var markerPopup = document.createElement("div");
                 markerPopup.className = "marker-popup";
                 markerPopup.innerHTML = `
                     <p>Tipo: <span class="Tipo-name">${Tipo}</span></p>
