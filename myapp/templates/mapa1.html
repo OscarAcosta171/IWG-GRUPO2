@@ -6,8 +6,6 @@
     <title>San Joaquín</title>
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/leaflet.css" />
-    <script src="leaflet.js"></script>
 
 </head>
 <body>
@@ -32,7 +30,7 @@
         </div>
 
         <!-- Sección derecha (título y botones) -->
-        <div class="right-section">
+        <div class="right-section">+
             
             <div class="title">
                 <h1>Campus San Joaquín</h1>
@@ -130,7 +128,6 @@
     };
                 var datos = "x=" + encodeURIComponent(x) +
                             "&y=" + encodeURIComponent(y) +
-                            "&Tipo=" + encodeURIComponent(Tipo) +
                             "&markerColor=" + encodeURIComponent(markerColor) +
                             "&mapa=1";
                 request.send(datos);

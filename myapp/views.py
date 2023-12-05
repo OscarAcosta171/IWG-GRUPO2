@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, get_object_or_404
+import json
 from django.http import HttpResponse
 from .forms import MarkerForm
 from .models import Marker
@@ -45,16 +46,36 @@ def pruebas(request):
 def loadScreen(request):
     return render(request, 'loadScreen.html')
 
+
+
+def load_markers(request, mapa):
+    markers = Marker.objects.filter(mapa = mapa).values('x_coordinate', 'y_coordinate', 'color')
+    return render(request, 'mapa6', {'markers': markers})
+
 @csrf_exempt
-def guardar_coordenadas(request):   
+def save_request(request):
     if request.method == 'POST':
-        x = request.POST.get('x')
-        y = request.POST.get('y')
-        Tipo = request.POST.get('Tipo')
-        markerColor = request.POST.get('markerColor')
-        mapa = request.POST.get('mapa')
+        data = json.loads(request.body.decode('utf-8'))
+        form = MarkerForm(data)
 
-        Marker.objects.create(x =x, y = y, Tipo = Tipo, color = markerColor, mapa = mapa)
-        return JsonResponse({'message': 'Marker saved successfully'})
+        if form.is_valid():
+            mapa = form.cleaned_data['mapa']
+            x_coordinate = form.cleaned_data['x_coordinate']
+            y_coordinate = form.cleaned_data['y_coordinate']
+            tipo = form.cleaned_data['tipo']
 
-    return JsonResponse({'message': 'Invalid request'})
+
+            # Save data to the database
+            Marker.objects.create(mapa = mapa, x_coordinate = x_coordinate, y_coordinate = y_coordinate, tipo = tipo)
+
+            return JsonResponse({'status': 'success'})
+        else:
+            return JsonResponse({'status': 'error', 'errors': form.errors.as_json()})
+
+    return JsonResponse({'status': 'error'})
+
+@csrf_exempt
+def remove_marker(request, latitude, longitude):
+    marker = get_object_or_404(Marker, latitude=latitude, longitude=longitude)
+    marker.delete()
+    return JsonResponse({'status': 'success'})
