@@ -3,6 +3,7 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from .views import save_request
+from .views import delete_marker
 
 urlpatterns = [
 
@@ -19,7 +20,8 @@ urlpatterns = [
     path('mas informacion/', views.mas_informacion, name= "mas_informacion"),
     path('pruebas/',views.pruebas, name='pruebas'),
     path('loadScreen/', views.loadScreen, name='loadscreen'),
-    path('save_request/', save_request, name='save_request'),
+    path('delete_marker/<int:marker_id>/', delete_marker, name='delete_marker'),
+    path('save_request/', save_request, name='save_request')
 ]
 
 if settings.DEBUG:

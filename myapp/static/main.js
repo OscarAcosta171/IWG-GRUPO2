@@ -25,17 +25,17 @@ var MarkerIcon = L.Icon.extend({
 
 
 
-var image = L.imageOverlay('/static/san_joaquin_v2.webp', bounds).addTo(map);
+var image = L.imageOverlay('{% static "san_joaquin_v2.webp" %}', bounds).addTo(map);
 map.fitBounds(bounds);
 
 
 
 var iconMapping = {
-    'vidrio': new MarkerIcon({ iconUrl: '/static/images/marker_icon_green.png' }),
-    'normal': new MarkerIcon({ iconUrl: '/static/images/marker_icon_red.png' }),
-    'papel': new MarkerIcon({ iconUrl: '/static/images/marker_icon_blue.png' }),
-    'plastico': new MarkerIcon({ iconUrl: '/static/images/marker_icon_yellow.png' }),
-    'latas': new MarkerIcon({ iconUrl: '/static/images/marker_icon_black.png' })
+    'vidrio': new MarkerIcon({ iconUrl: '/static/marker_icon_green.png' }),
+    'normal': new MarkerIcon({ iconUrl: '/static/marker_icon_red.png' }),
+    'papel': new MarkerIcon({ iconUrl: '/static/marker_icon_blue.png' }),
+    'plastico': new MarkerIcon({ iconUrl: '/static/marker_icon_yellow.png' }),
+    'latas': new MarkerIcon({ iconUrl: '/static/marker_icon_black.png' })
 };
     
 
@@ -56,7 +56,9 @@ var popup = L.popup();
 
 function onMapClick(e) {
     var container = document.createElement('div');
-    container.innerHTML = "Deseas solicitar un marcador en " + e.latlng.toString() + '?'+
+    var a = e.latlng.lat
+    var b = e.latlng.lng
+    container.innerHTML = "Deseas solicitar un marcador en " + a.toFixed().toString() +', ' + b.toFixed().toString()+ '?'+
         '<br><br>Elegir tipo de marcador: ' +
         '<select id="markerType">' +
         '   <option value="normal">Normal</option>' +
@@ -72,7 +74,7 @@ function onMapClick(e) {
         var marker_type = container.querySelector('#markerType').value;
         var latlng = e.latlng;
         sendDataToServer(latlng, marker_type);
-        alert('Tipo de marcador: ' + marker_type + '\nCoordenadas: ' + e.latlng.toString()) + '\n¡Tu solicitud se ha enviado con éxito!';
+        alert('Tipo de marcador: ' + marker_type + '\nCoordenadas: ' + a.toFixed() + ', ' + b.toFixed() + '\n¡Tu solicitud se ha enviado con éxito!');
         map.closePopup();
     });
     popup
@@ -117,7 +119,10 @@ for (var i = 0; i < markersData.length; i++) {
     var icono = iconMapping[markerType]
     var marker = L.marker([markerData.fields.x_coordinate, markerData.fields.y_coordinate], { icon: icono });
     layerGroups[markerType].addLayer(marker);
-    marker.bindPopup('<strong>' + markerType + '</strong><br/>');
+    var popupContent = '<strong>' + markerType + '</strong><br/>' +
+                        '<button onclick="handleButtonClick(\'' + markerData.pk + '\')">Eliminar Marcador</button>';
+    marker.bindPopup(popupContent);
 }
 
-//const vidrio1 = L.marker([3670, 4385], {icon: marcador_vidrio}).bindPopup("vidrio")
+
+

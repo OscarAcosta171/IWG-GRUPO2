@@ -1,4 +1,5 @@
 {% load static %}
+{% load render_bundle from webpack_loader %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -35,7 +36,25 @@
             <div id="map"></div>
             <script>
                 var markersData = JSON.parse('{{ markers_json|escapejs }}');
-                console.log('{{ markers_json|escapejs }}');
+            </script>
+            <script>
+                function handleButtonClick(markerId) {
+                    console.log(`Deleting marker with ID: ${markerId}`);
+                    fetch(`/delete_marker/${markerId}/`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data.message);
+                    })
+                    .catch(error => {
+                        console.error('Error deleting marker:', error);
+                    });
+                }
+            
             </script>
             <script type = "module" src = "{% static 'main.js' %}"> </script>
         </div>
