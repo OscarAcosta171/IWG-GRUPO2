@@ -33,10 +33,10 @@ nav a {
 
 .map-container {
     position: absolute;
-    top: 10vh;
-    left: 2vh;
-    width: 90vh; /* Adjust the width as needed */
-    height: 80vh;
+    top: 5vh;
+    left: 7vh;
+    width: 180vh; /* Adjust the width as needed */
+    height: 93vh;
     overflow: hidden;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3); 
     border-radius: 10px;
@@ -205,6 +205,7 @@ nav a {
 }
 
 .right-section-2 { /* recuadro de abajo*/
+
     padding: 10px;
     background-color: #dddddd;
     border-radius: 20px;

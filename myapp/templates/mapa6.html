@@ -1,5 +1,4 @@
 {% load static %}
-{% load render_bundle from webpack_loader %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,8 +12,6 @@
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
             integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
             crossorigin="">
-        </script>
-        <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/">
         </script>
     </head>
 
@@ -31,38 +28,34 @@
             <span>|</span>
             <a href="{% url 'mas_informacion' %}">Más información</a>
         </nav>
-
+        <!-- donde sucede la mágia -->
         <div class = "map-container" style="position: relative;">
-            <div id="map"></div>
-            <script>
-                var markersData = JSON.parse('{{ markers_json|escapejs }}');
-            </script>
-            <script>
-                function handleButtonClick(markerId) {
-                    console.log(`Deleting marker with ID: ${markerId}`);
-                    fetch(`/delete_marker/${markerId}/`, {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json',
+        <div id="map"></div>
+        <script>
+            var markersData = JSON.parse('{{ markers_json|escapejs }}');
+        </script>
+        <script>
+            function handleButtonClick(markerId) {
+                console.log(`Deleting marker with ID: ${markerId}`);
+                fetch(`/delete_marker/${markerId}/`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
                     },
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log(data.message);
-                    })
-                    .catch(error => {
-                        console.error('Error deleting marker:', error);
-                    });
-                }
-            
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.message);
+                })
+                .catch(error => {
+                    console.error('Error deleting marker:', error);
+                });
+            }
             </script>
-            <script type = "module" src = "{% static 'main.js' %}"> </script>
+        <script type = "module" src = "{% static 'main.js' %}"> </script>
         </div>
         <script>
-
         </script>
-
-        
         <!-- este es el recuadro con colores en la parte inferior derecha de cada mapa -->
         <div class="right-section-2">
             <div class="title2">

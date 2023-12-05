@@ -17,7 +17,7 @@ var MarkerIcon = L.Icon.extend({
     options:{
         iconSize:     [38, 65],
         shadowSize:   [50, 64],
-        iconAnchor:   [22, 70],
+        iconAnchor:   [22, 94],
         shadowAnchor: [4, 62],
         popupAnchor:  [-3, -100]   
     } 
@@ -31,8 +31,8 @@ map.fitBounds(bounds);
 
 
 var iconMapping = {
-    'vidrio': new MarkerIcon({ iconUrl: '/static/marker_icon_green.png' }),
-    'normal': new MarkerIcon({ iconUrl: '/static/marker_icon_red.png' }),
+    'vidrio': new MarkerIcon({ iconUrl: './myapp/static/marker_icon_green.png' }),
+    'normal': new MarkerIcon({ iconUrl: 'https://static.vecteezy.com/system/resources/thumbnails/017/178/337/small/location-map-marker-icon-symbol-on-transparent-background-free-png.png' }),
     'papel': new MarkerIcon({ iconUrl: '/static/marker_icon_blue.png' }),
     'plastico': new MarkerIcon({ iconUrl: '/static/marker_icon_yellow.png' }),
     'latas': new MarkerIcon({ iconUrl: '/static/marker_icon_black.png' })
@@ -74,7 +74,6 @@ function onMapClick(e) {
         var marker_type = container.querySelector('#markerType').value;
         var latlng = e.latlng;
         sendDataToServer(latlng, marker_type);
-        
         alert('Tipo de marcador: ' + marker_type + '\nCoordenadas: ' + a.toFixed() + ', ' + b.toFixed() + '\n¡Tu solicitud se ha enviado con éxito!');
         map.closePopup();
     });
@@ -114,7 +113,6 @@ function sendDataToServer(latlng, marker_type) {
 
 
 
-//Para cargar desde la base de datos apenas cargue la imagen
 for (var i = 0; i < markersData.length; i++) {
     var markerData = markersData[i];
     var markerType = markerData.fields.tipo;
