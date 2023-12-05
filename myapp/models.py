@@ -6,3 +6,7 @@ class Marker(models.Model):
     x_coordinate = models.FloatField()
     y_coordinate = models.FloatField()
     tipo = models.TextField()
+
+class Mapas(models.Model):
+    mapa = models.TextField()
+    url = models.TextField()

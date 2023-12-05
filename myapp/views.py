@@ -21,29 +21,29 @@ def mapa1(request):                         # mapa 1
     markers = Marker.objects.filter(mapa='mapa1')
     markers_json = serialize('json', markers)
     markers_data = json.loads(markers_json)
-    return render(request, 'mapa1.html', {'markers': markers})
+    return render(request, 'mapa1.html', {'markers_json': json.dumps(markers_data)})
 
 def mapa2(request):                          #mapa2
     markers = Marker.objects.filter(mapa='mapa2')
     markers_json = serialize('json', markers)
     markers_data = json.loads(markers_json)
-    return render(request, 'mapa2.html', {'markers': markers})
+    return render(request, 'mapa2.html', {'markers_json': json.dumps(markers_data)})
 def mapa3(request):                          #mapa3
     markers = Marker.objects.filter(mapa='mapa3')
     markers_json = serialize('json', markers)
     markers_data = json.loads(markers_json)
-    return render(request, 'mapa3.html', {'markers': markers})
+    return render(request, 'mapa3.html', {'markers_json': json.dumps(markers_data)})
 def mapa4(request):                          #mapa4
     markers = Marker.objects.filter(mapa='mapa4')
     markers_json = serialize('json', markers)
     markers_data = json.loads(markers_json)
-    return render(request, 'mapa4.html', {'markers': markers})
+    return render(request, 'mapa4.html', {'markers_json': json.dumps(markers_data)})
 
 def mapa5(request):                          #mapa5
     markers = Marker.objects.filter(mapa='mapa5')
     markers_json = serialize('json', markers)
     markers_data = json.loads(markers_json)
-    return render(request, 'mapa5.html', {'markers': markers})
+    return render(request, 'mapa5.html', {'markers_json': json.dumps(markers_data)})
 
 def mapa6(request):                          #mapa de prueba 1
     markers = Marker.objects.filter(mapa='mapa6')
@@ -55,13 +55,13 @@ def mapa7(request):                          #mapa de prueba 2
     markers = Marker.objects.filter(mapa='mapa7')
     markers_json = serialize('json', markers)
     markers_data = json.loads(markers_json)
-    return render(request, 'mapa7.html', {'markers': markers})
+    return render(request, 'mapa7.html', {'markers_json': json.dumps(markers_data)})
 
 def mapa8(request):                          #mapa de prueba 3
     markers = Marker.objects.filter(mapa='mapa8')
     markers_json = serialize('json', markers)
     markers_data = json.loads(markers_json)
-    return render(request, 'mapa8.html', {'markers': markers})
+    return render(request, 'mapa8.html', {'markers_json': json.dumps(markers_data)})
 
 def pruebas(request):
     return render(request, 'pruebas.html')

@@ -11,7 +11,7 @@ const map = L.map("map", {
 
 var bounds = [[0,0], [5144,7260]];
 
-
+var image = L.imageOverlay(mapa_link, bounds).addTo(map);
 
 var MarkerIcon = L.Icon.extend({
     options:{
@@ -25,7 +25,7 @@ var MarkerIcon = L.Icon.extend({
 
 
 
-var image = L.imageOverlay('/static/san_joaquin_v2.webp', bounds).addTo(map);
+
 map.fitBounds(bounds);
 
 
@@ -58,7 +58,7 @@ function onMapClick(e) {
     var container = document.createElement('div');
     var a = e.latlng.lat
     var b = e.latlng.lng
-    container.innerHTML = "Deseas solicitar un marcador en " + a.toFixed().toString() +', ' + b.toFixed().toString()+ '?'+
+    container.innerHTML = "Deseas agregar un marcador en " + a.toFixed().toString() +', ' + b.toFixed().toString()+ '?'+
         '<br><br>Elegir tipo de marcador: ' +
         '<select id="markerType">' +
         '   <option value="normal">Normal</option>' +
@@ -97,7 +97,7 @@ function sendDataToServer(latlng, marker_type) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            mapa:'mapa6',
+            mapa: mapa_id,
             x_coordinate: latlng.lat,
             y_coordinate: latlng.lng,
             tipo: marker_type
