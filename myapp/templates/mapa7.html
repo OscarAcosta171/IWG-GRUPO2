@@ -3,6 +3,7 @@
 <html>
     <head>
         <title>AAAAAAAAAAAAAAA </title>
+        <link rel="icon" type="image/x-icon" href="{% static 'logo_verde.ico' %}" />
         <meta   charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -35,6 +36,10 @@
             var markersData = JSON.parse('{{ markers_json|escapejs }}');
         </script>
         <script>
+            var bounds = [
+                [0,0],
+                [5144,7260]
+            ]
             var mapa_id = 'mapa7'
             var mapa_link = '/static/san_joaquin_v2.webp'
             </script>

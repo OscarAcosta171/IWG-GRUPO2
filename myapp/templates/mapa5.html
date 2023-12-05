@@ -2,7 +2,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>AAAAAAAAAAAAAAA </title>
+        <title>Viña del Mar </title>
+        <link rel="icon" type="image/x-icon" href="{% static 'logo_verde.ico' %}" />
         <meta   charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -35,6 +36,10 @@
             var markersData = JSON.parse('{{ markers_json|escapejs }}');
         </script>
         <script>
+            var bounds = [
+                [0,0],
+                [3408,5508]
+            ]
             var mapa_id = 'mapa5'
             var mapa_link = '/static/mapa_viña.webp.webp'
             </script>
