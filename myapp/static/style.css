@@ -94,6 +94,7 @@ nav a {
     box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.2); /* Efecto de sombra ligeramente mayor */
     transform: scale(1.02);
 }
+
 #map {
     width: 100%;
     height: 100%;
@@ -163,5 +164,8 @@ nav a {
 h1 {
     margin: 0;
 }
+.leaflet-control-layers.leaflet-control:hover {
+    padding: 20px; /* Ajustar el espacio interior del control */
+    font-size: 15px;
 
-
+}

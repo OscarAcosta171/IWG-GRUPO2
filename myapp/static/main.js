@@ -22,6 +22,7 @@ var MarkerIcon = L.Icon.extend({
 map.fitBounds(bounds);
 
 var iconMapping = {
+
     'vidrio': new MarkerIcon({ iconUrl: '/static/marker_icon_green.png' }),
     'normal': new MarkerIcon({ iconUrl: '/static/marker_icon_red.png' }),
     'papel': new MarkerIcon({ iconUrl: '/static/marker_icon_blue.png' }),
@@ -35,6 +36,7 @@ for (var type in iconMapping) {
 }
 
 var layerControl = L.control.layers(null, layerGroups).addTo(map);
+
 
 //popup para solicitar marcadores
 var popup = L.popup({
@@ -86,11 +88,13 @@ function onMapClick(e) {
         map.closePopup();
     });
     container.appendChild(button);
-
+ 
     popup
         .setLatLng(e.latlng)
         .setContent(container)
         .openOn(map);
+        container.classList.add('filtro');
+
 }
 
 
@@ -126,6 +130,7 @@ for (var i = 0; i < markersData.length; i++) {
     var icono = iconMapping[markerType]
     var marker = L.marker([markerData.fields.x_coordinate, markerData.fields.y_coordinate], { icon: icono });
     layerGroups[markerType].addLayer(marker);
+
     var popupContent = `
         <div class="custom-popup-content">
             <strong>${markerType}</strong><br/>
