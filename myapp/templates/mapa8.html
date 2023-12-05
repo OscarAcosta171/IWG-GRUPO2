@@ -1,264 +1,92 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-<head>
-    <link rel="icon" type="image/x-icon" href="{% static 'logo_verde.ico' %}" />
-    <title>Mapa prueba #3</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
-</head>
-<body>
-    <!-- Barra de navegación -->
-    <nav>
-        <a href="{% url 'index' %}">
-            <img src="{% static 'logo_blanco.webp' %}" alt="Logo USM ECO GUIDE" class="logo">
-            USM ECO GUIDE
-        </a>
-        <span>|</span>
-        <a href="{% url 'mapas' %}">Mapas</a>
-        <a href="#" id="anularPinLink">Anular Pin</a>
-        <span>|</span>
-        <a href="{% url 'mas_informacion' %}">Más información</a>
-    </nav>
+    <head>
+        <title>AAAAAAAAAAAAAAA </title>
+        <meta   charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        crossorigin=""/>
+        <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin="">
+        </script>
+    </head>
 
-    <!-- Contenedor de la imagen -->
-    <div class="container">
-        <!-- Sección de la imagen -->
-        <div class="image-container" style="position: relative;">
-            <img src="{% static 'san_joaquin_v2.webp' %}" alt="Mapa 1" width="1000" height="730">
+    <body>
+        <!-- nav bar -->
+        <nav>
+            <a href="{% url 'index' %}">
+                <img src="{% static 'logo_blanco.webp' %}" alt="Logo USM ECO GUIDE" class="logo">
+                USM ECO GUIDE
+            </a>
+            <span>|</span>
+            <a href="{% url 'mapas' %}">Mapas</a>
+            <a href="#" id="anularPinLink">Anular Pin</a>
+            <span>|</span>
+            <a href="{% url 'mas_informacion' %}">Más información</a>
+        </nav>
+        <!-- donde sucede la mágia -->
+        <div class = "map-container" style="position: relative;">
+        <div id="map"></div>
+        <script>
+            var markersData = JSON.parse('{{ markers_json|escapejs }}');
+        </script>
+        <script>
+            var mapa_id = 'mapa8'
+            var mapa_link = '/static/san_joaquin_v2.webp'
+            </script>
+        <script>
+            function handleButtonClick(markerId) {
+                console.log(`Deleting marker with ID: ${markerId}`);
+                fetch(`/delete_marker/${markerId}/`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.message);
+                })
+                .catch(error => {
+                    console.error('Error deleting marker:', error);
+                });
+            }
+            </script>
+        <script type = "module" src = "{% static 'main.js' %}"> </script>
         </div>
-
-        <!-- Sección derecha (título y botones) -->
-        <div class="right-section">
-            <div class="title">
-                <h1>Campus de prueba #3</h1>
+        <script>
+        </script>
+        <!-- este es el recuadro con colores en la parte inferior derecha de cada mapa -->
+        <div class="right-section-2">
+            <div class="title2">
+                <h1>Asignación de colores:</h1>
             </div>
-            <div class="map-buttons">
-                <button id="addMarkerButton">Añadir Marcador</button>
-                <select id="markerColor">
-                    <option value="#FF3333">Normal</option>
-                    <option value="#3333FF">Papel y cartón</option>
-                    <option value="#33FF33">Vidrio</option>
-                    <option value="#FFFF00">Botellas plásticas</option>
-                    <option value="#424242">Latas</option>
-                </select>
-                <select id="filterMarkers">
-                    <option value="all">Ver Todos</option>
-                    <option value="#FF3333">Normal</option>
-                    <option value="#3333FF">Papel y cartón</option>
-                    <option value="#33FF33">Vidrio</option>
-                    <option value="#FFFF00">Botellas plásticas</option>
-                    <option value="#424242">Latas</option>
-                </select>                
-                <button id="clearMarkers">Limpiar Marcadores</button>
-                <button id="SaveChanges">Guardar Cambios</button>
+            <div class="text-asignation"> 
+                <div class="color-description">
+                    <div class="color-box" style="background-color:#FF3333;"></div>
+                    <h1>Normal</h1>
+                </div>
+                <div class="color-description">
+                    <div class="color-box" style="background-color: #3333FF;"></div>
+                    <h1>Papel y cartón</h1>
+                </div>
+                <div class="color-description">
+                    <div class="color-box" style="background-color: #33FF33;"></div>
+                    <h1>Vidrio</h1>
+                </div>
+                <div class="color-description">
+                    <div class="color-box" style="background-color: #FFFF00;"></div>
+                    <h1>Botellas plásticas</h1>
+                </div>
+                <div class="color-description">
+                    <div class="color-box" style="background-color: #212121;"></div>
+                    <h1>Latas</h1>
+                </div>
             </div>
-            <div class="right-section-2">
-                <div class="title2">
-                    <h1>Asignación de colores:</h1>
-                </div>
-                <div class="text-asignation"> 
-                    <div class="color-description">
-                        <div class="color-box" style="background-color:#FF3333;"></div>
-                        <h1>Normal</h1>
-                    </div>
-                    <div class="color-description">
-                        <div class="color-box" style="background-color: #3333FF;"></div>
-                        <h1>Papel y cartón</h1>
-                    </div>
-                    <div class="color-description">
-                        <div class="color-box" style="background-color: #33FF33;"></div>
-                        <h1>Vidrio</h1>
-                    </div>
-                    <div class="color-description">
-                        <div class="color-box" style="background-color: #FFFF00;"></div>
-                        <h1>Botellas plásticas</h1>
-                    </div>
-                    <div class="color-description">
-                        <div class="color-box" style="background-color: #757575;"></div>
-                        <h1>Latas</h1>
-                    </div>
-                </div>
-            </div>    
-        </div>
-    </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var markerArea = document.querySelector(".image-container");
-            var markers = [];
-            var addingMarker = false;
-            
-    
-            document.getElementById("addMarkerButton").addEventListener("click", toggleAddMarker);
-            document.getElementById("clearMarkers").addEventListener("click", clearMarkers);
-            document.getElementById("SaveChanges").addEventListener("click", saveChanges);
-            document.getElementById("anularPinLink").addEventListener("click", anularPin);
-            document.getElementById("filterMarkers").addEventListener("change", filterMarkers);
-    
-            markerArea.addEventListener("click", function (event) {
-                if (addingMarker) {
-                    var x = event.offsetX;
-                    var y = event.offsetY;
-                    var Tipo = document.getElementById("markerColor").options[document.getElementById("markerColor").selectedIndex].text;
-                    var markerColor = document.getElementById("markerColor").value;
-    
-                    var marker = createMarker(x, y, Tipo, markerColor);
-                    markerArea.appendChild(marker);
-                    markers.push(marker);
-                    SaveMarkerToDatabase(x, y, Tipo, markerColor)
-    
-                    addingMarker = false;
-                    updateAddMarkerButtonText();
-                }
-            });
-    
-            function SaveMarkerToDatabase(x, y,Tipo, markerColor) {
-                var request = new XMLHttpRequest();
-                request.open('POST', '/guardar_coordenadas/', true);
-                request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
-                request.onreadystatechange = function () {
-                    if (request.readyState == 4 && request.status == 200) {
-                        console.log(request.responseText);
-                    }
-    };
-                var datos = "x=" + encodeURIComponent(x) +
-                            "&y=" + encodeURIComponent(y) +
-                            "&Tipo=" + encodeURIComponent(Tipo) +
-                            "&markerColor=" + encodeURIComponent(markerColor) +
-                            "&mapa=4";
-                request.send(datos);
-            }
-            function createMarker(x, y, Tipo, markerColor) {
-                var marker = document.createElement("div");
-                marker.className = "marker " + Tipo.toLowerCase();
-                marker.style.position = "absolute";
-                marker.style.left = x + "px";
-                marker.style.top = y + "px";
-                marker.style.backgroundColor = markerColor;
-    
-                var markerPopup = document.createElement("div");
-                markerPopup.className = "marker-popup";
-                markerPopup.innerHTML = `
-                    <p>Tipo: <span class="Tipo-name">${Tipo}</span></p>
-                    <button class="delete-marker">Eliminar</button>
-                    <button class="move">Mover</button>
-                `;
-    
-                marker.appendChild(markerPopup);
-    
-                marker.addEventListener("mouseenter", function () {
-                    markerPopup.style.display = "block";
-                });
-    
-                marker.addEventListener("mouseleave", function () {
-                    markerPopup.style.display = "none";
-                });
-    
-                var moveButton = markerPopup.querySelector(".move");
-                moveButton.addEventListener("click", function () {
-                    moveMarker(marker);
-                });
-    
-                var deleteButton = markerPopup.querySelector(".delete-marker");
-                deleteButton.addEventListener("click", function () {
-                    deleteMarker(marker);
-                });
-                return marker;
-            }
-    
-            function toggleAddMarker() {
-                addingMarker = !addingMarker;
-                updateAddMarkerButtonText();
-            }
-    
-            function updateAddMarkerButtonText() {
-                var addMarkerButton = document.getElementById("addMarkerButton");
-                addMarkerButton.innerText = addingMarker ? "Cancelar" : "Añadir Marcador";
-            }
-    
-            function moveMarker(marker) { /* funcion para mover el marcador*/
-                var isMoving = false;
-                var offsetX, offsetY;
-                var canMove = true;
-
-                marker.addEventListener("mousedown", function (event) {
-                    isMoving = true;
-                    var rect = marker.getBoundingClientRect();
-                    offsetX = event.clientX - rect.left + window.scrollX;
-                    offsetY = event.clientY - rect.top + window.scrollY;
-                    marker.style.cursor = "grabbing"; 
-                    document.body.style.cursor = "grabbing";
-                    event.stopPropagation(); 
-                    event.preventDefault(); 
-                });
-
-                document.addEventListener("mousemove", function (event) {
-                    if (isMoving) {
-                        if(canMove) { 
-                            var x = event.clientX - offsetX;
-                            var y = event.clientY - offsetY;
-                            marker.style.left = x + "px";
-                            marker.style.top = y + "px";
-                        }
-                    }
-                });
-
-                document.addEventListener("mouseup", function () {
-                    if (isMoving) {
-                        canMove= false
-                        isMoving = false;
-                        marker.style.cursor = "grab"; 
-                        document.body.style.cursor = "auto"; 
-                        
-                    } 
-                });
-            }
-    
-            function deleteMarker(marker) { /* para borrar los marcadores desde el panel*/
-                markerArea.removeChild(marker);
-                markers = markers.filter(function (item) {
-                    return item !== marker;
-                });
-            }
-    
-            function clearMarkers() {
-                markers.forEach(function (marker) {
-                    markerArea.removeChild(marker);
-                });
-                markers = [];
-            }
-    
-            function saveChanges() {
-                // Agrega aquí la lógica para guardar los cambios si es necesario
-                // Por ejemplo, puedes enviar los datos al servidor o almacenarlos localmente.
-                console.log("Cambios guardados");
-            }
-    
-            function anularPin() {
-                sessionStorage.removeItem("mapaPinchado");
-            }
-    
-            function filterMarkers() {
-                var selectedColor = document.getElementById("filterMarkers").value;
-    
-                markers.forEach(function (marker) {
-                    if (selectedColor === "all" || RGBToHex(marker.style.backgroundColor) === selectedColor)
-                        marker.style.display = "block";
-                    else marker.style.display = "none";
-                });
-            }
-    
-            function RGBToHex(rgb) {
-                var rgbArray = rgb.match(/\d+/g);
-                var hex = "#";
-                for (var i = 0; i < 3; i++) {
-                    var channel = parseInt(rgbArray[i]);
-                    hex += ("0" + channel.toString(16)).slice(-2);
-                }
-                return hex.toUpperCase();
-            }
-        });
-    </script>
-    
-</body>
+        </div>    
+    </body>
 </html>
