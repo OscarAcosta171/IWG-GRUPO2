@@ -1,5 +1,3 @@
-
-
 const map = L.map("map", {
     minZoom: -2 ,
     crs: L.CRS.Simple,
@@ -8,9 +6,12 @@ const map = L.map("map", {
     [5144, 7260]
     ]
 });
-//límites de la imágen(resolución en pixeles, alto x ancho)
-//formato "y,x" para todo en leaflet
+
+
+
 var bounds = [[0,0], [5144,7260]];
+
+
 
 var MarkerIcon = L.Icon.extend({
     options:{
@@ -22,48 +23,32 @@ var MarkerIcon = L.Icon.extend({
     } 
 });
 
+
+
 var image = L.imageOverlay('/static/san_joaquin_v2.webp', bounds).addTo(map);
 map.fitBounds(bounds);
 
-var marcador_vidrio = new MarkerIcon({ iconUrl: '/static/images/marker_icon_green.png' }), 
-    marcador_normal = new MarkerIcon({iconUrl: '/static/images/marker_icon_red.png'}),
-    marcador_papel = new MarkerIcon({iconUrl: '/static/images/marker_icon_blue.png'}),
-    marcador_plastico = new MarkerIcon({iconUrl: '/static/images/marker_icon_yellow.png'}),
-    marcador_latas = new MarkerIcon({iconUrl: '/static/images/marker_icon_black.png'});
+
+
+var iconMapping = {
+    'vidrio': new MarkerIcon({ iconUrl: '/static/images/marker_icon_green.png' }),
+    'normal': new MarkerIcon({ iconUrl: '/static/images/marker_icon_red.png' }),
+    'papel': new MarkerIcon({ iconUrl: '/static/images/marker_icon_blue.png' }),
+    'plastico': new MarkerIcon({ iconUrl: '/static/images/marker_icon_yellow.png' }),
+    'latas': new MarkerIcon({ iconUrl: '/static/images/marker_icon_black.png' })
+};
     
 
 
-    const vidrio1 = L.marker([3670, 4385], {icon: marcador_vidrio}).bindPopup("vidrio")
-    const normal1 = L.marker([3670, 4360], {icon: marcador_normal}).bindPopup("normal")
-    const papel1 = L.marker([3670, 4335], {icon: marcador_papel}).bindPopup("papel y cartón")
-    const lata1 = L.marker([3670, 4310], {icon: marcador_latas}).bindPopup("latas")
-    const plastico1 = L.marker([3670, 4285], {icon: marcador_plastico}).bindPopup("plásticos")
-
-
-
-var all_markers=[vidrio1, normal1, papel1, lata1, plastico1];
-
-
-
-var vidrios = L.layerGroup([vidrio1]);
-var normales = L.layerGroup([normal1]);
-var papeles = L.layerGroup([papel1]);
-var latas = L.layerGroup([lata1]);
-var plasticos = L.layerGroup([plastico1]);
-
-
-
-//para el filtro
-var filtro = {
-    "Normal": normales,
-    "Papel y cartón": papeles,
-    "Vidrio": vidrios,
-    "Botellas plásticas": plasticos,
-    "Latas": latas
+var layerGroups = {};
+for (var type in iconMapping) {
+    layerGroups[type] = L.layerGroup().addTo(map);
 }
 
 
-var layerControl = L.control.layers(null, filtro).addTo(map);
+
+var layerControl = L.control.layers(null, layerGroups).addTo(map);
+
 
 
 //popup para solicitar marcadores
@@ -75,10 +60,10 @@ function onMapClick(e) {
         '<br><br>Elegir tipo de marcador: ' +
         '<select id="markerType">' +
         '   <option value="normal">Normal</option>' +
-        '   <option value="Papel y cartón">Papel y cartón</option>' +
-        '   <option value="Vidrio">Vidrio</option>' +
-        '   <option value="Botellas plásticas">Botellas plásticas</option>' +
-        '   <option value="Latas">Latas</option>' +
+        '   <option value="papel">Papel y cartón</option>' +
+        '   <option value="vidrio">Vidrio</option>' +
+        '   <option value="plastico">Botellas plásticas</option>' +
+        '   <option value="latas">Latas</option>' +
         '</select>' +
         '<br><br>' +
         '<button id="confirmButton">Solicitar</button>';
@@ -101,7 +86,6 @@ map.on('click', onMapClick);
 
 
 
-
 //se explica solito
 function sendDataToServer(latlng, marker_type) {
     fetch('/save_request/', {
@@ -110,7 +94,7 @@ function sendDataToServer(latlng, marker_type) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            mapa:'1',
+            mapa:'mapa6',
             x_coordinate: latlng.lat,
             y_coordinate: latlng.lng,
             tipo: marker_type
@@ -124,3 +108,16 @@ function sendDataToServer(latlng, marker_type) {
         console.error('Error:', error);
     });
 }
+
+
+
+for (var i = 0; i < markersData.length; i++) {
+    var markerData = markersData[i];
+    var markerType = markerData.fields.tipo;
+    var icono = iconMapping[markerType]
+    var marker = L.marker([markerData.fields.x_coordinate, markerData.fields.y_coordinate], { icon: icono });
+    layerGroups[markerType].addLayer(marker);
+    marker.bindPopup('<strong>' + markerType + '</strong><br/>');
+}
+
+//const vidrio1 = L.marker([3670, 4385], {icon: marcador_vidrio}).bindPopup("vidrio")

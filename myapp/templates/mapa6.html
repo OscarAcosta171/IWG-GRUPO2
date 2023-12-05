@@ -33,9 +33,17 @@
 
         <div class = "map-container" style="position: relative;">
             <div id="map"></div>
+            <script>
+                var markersData = JSON.parse('{{ markers_json|escapejs }}');
+                console.log('{{ markers_json|escapejs }}');
+            </script>
             <script type = "module" src = "{% static 'main.js' %}"> </script>
         </div>
+        <script>
 
+        </script>
+
+        
         <!-- este es el recuadro con colores en la parte inferior derecha de cada mapa -->
         <div class="right-section-2">
             <div class="title2">

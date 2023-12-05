@@ -5,6 +5,7 @@ from .forms import MarkerForm
 from .models import Marker
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.core.serializers import serialize
 
 # Create your views here.
 def index(request):                         #Pagina principal
@@ -17,40 +18,42 @@ def mas_informacion(request):               #Mas informacion de reciclaje
     return render(request, 'mas_informacion.html')
 
 def mapa1(request):                         # mapa 1
-    return render(request, 'mapa1.html')
+    markers = Marker.objects.filter(mapa='mapa1')
+    return render(request, 'mapa1.html', {'markers': markers})
 
 def mapa2(request):                          #mapa2
-    return render(request, 'mapa2.html')
-
+    markers = Marker.objects.filter(mapa='mapa2')
+    return render(request, 'mapa2.html', {'markers': markers})
 def mapa3(request):                          #mapa3
-    return render(request, 'mapa3.html')
-
+    markers = Marker.objects.filter(mapa='mapa3')
+    return render(request, 'mapa3.html', {'markers': markers})
 def mapa4(request):                          #mapa4
-    return render(request, 'mapa4.html')
+    markers = Marker.objects.filter(mapa='mapa4')
+    return render(request, 'mapa4.html', {'markers': markers})
 
 def mapa5(request):                          #mapa5
-    return render(request, 'mapa5.html')
+    markers = Marker.objects.filter(mapa='mapa5')
+    return render(request, 'mapa5.html', {'markers': markers})
 
 def mapa6(request):                          #mapa de prueba 1
-    return render(request, 'mapa6.html')
+    markers = Marker.objects.filter(mapa='mapa6')
+    markers_json = serialize('json', markers)
+    markers_data = json.loads(markers_json)
+    return render(request, 'mapa6.html', {'markers_json': json.dumps(markers_data)})
 
 def mapa7(request):                          #mapa de prueba 2
-    return render(request, 'mapa7.html')
+    markers = Marker.objects.filter(mapa='mapa7')
+    return render(request, 'mapa7.html', {'markers': markers})
 
 def mapa8(request):                          #mapa de prueba 3
-    return render(request, 'mapa8.html')
+    markers = Marker.objects.filter(mapa='mapa8')
+    return render(request, 'mapa8.html', {'markers': markers})
 
 def pruebas(request):
     return render(request, 'pruebas.html')
 
 def loadScreen(request):
     return render(request, 'loadScreen.html')
-
-
-
-def load_markers(request, mapa):
-    markers = Marker.objects.filter(mapa = mapa).values('x_coordinate', 'y_coordinate', 'color')
-    return render(request, 'mapa6', {'markers': markers})
 
 @csrf_exempt
 def save_request(request):
@@ -73,9 +76,3 @@ def save_request(request):
             return JsonResponse({'status': 'error', 'errors': form.errors.as_json()})
 
     return JsonResponse({'status': 'error'})
-
-@csrf_exempt
-def remove_marker(request, latitude, longitude):
-    marker = get_object_or_404(Marker, latitude=latitude, longitude=longitude)
-    marker.delete()
-    return JsonResponse({'status': 'success'})

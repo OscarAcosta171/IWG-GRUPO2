@@ -4,7 +4,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 from .views import save_request
 
-
 urlpatterns = [
 
     path('', views.index, name='index'),
@@ -21,7 +20,6 @@ urlpatterns = [
     path('pruebas/',views.pruebas, name='pruebas'),
     path('loadScreen/', views.loadScreen, name='loadscreen'),
     path('save_request/', save_request, name='save_request'),
-    path('mapa6/', save_request, name='save_request')
 ]
 
 if settings.DEBUG:
